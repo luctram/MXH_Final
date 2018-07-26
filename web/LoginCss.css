@@ -1,0 +1,181 @@
+/*Login Login*/
+form,fieldset,input,textarea {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+  background: transparent;
+  vertical-align: baseline;
+  font-size: 100%;
+}
+body {
+  line-height: 1;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+#warp {
+   position: relative;
+  margin: 0px auto 0;
+  width: 400px;
+  text-align: center;
+  color: white;
+}
+#welcome{
+    position: relative;
+    text-align: center;
+    margin-top:40px;
+    font-size: 23px;
+   
+}
+
+#welcome p{
+    text-align: center;
+    width:1650px;
+}
+body {
+  min-height: 100%;
+  height: 100%;
+  background-color:#f9c48d ;
+  font-weight: lighter;
+  font-family: "HelveticaNeue-Light",
+    "Helvetica Neue Light",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    "Lucida Grande",
+    sans-serif;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+a {
+    font-size: 12px;
+  color: #61360a;
+  text-decoration: none;
+}
+p {
+  display: block;
+  width: 300px;
+  margin-left: -180px;
+  margin-top: -5px;
+}
+p a {
+  color: #61360a;
+  font-size: 10px;
+  text-decoration: none;
+}
+p a:hover {
+  color: #be1dcc;
+  border-bottom: 1px solid gray;
+}
+
+form {
+    
+  display: block;
+  width: 400px;
+  height: 300px;
+}
+h1 {
+  color: #c36d15;
+  font-weight: bolder;
+  font-size: 60px;
+}
+.Make {
+  height: 250px;
+  float: left;
+  width: 200px;
+  border-right: 1px solid #925210;
+  text-align: left;
+  left: 0;
+  top: 0;
+  transition: all 200ms ease-in 100ms;
+}
+.Friend {
+  height: 250px;
+  top: 70px;
+  left: -62px;
+  float: right;
+  width: 150px;
+  text-align: right;
+  transition: all 200ms ease-in 100ms;
+}
+.Make, .Friend {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  transform: rotate(25deg);
+}
+.Friend h1 {
+  margin-left: 0px;
+  color: #7a440d;
+}
+.rota h1 {margin-left: 20px;}
+.roti, .rota {
+  position: relative;
+  display: block;
+  transform: rotate(-25deg);
+}
+.Make:hover h1{
+    color: #7a440d;
+}
+.Friend:hover h1 {
+  color: #c36d15;
+}
+.rota {
+  margin-top: 80px;
+  margin-left: 35px;
+}
+.roti {
+  margin-top: 80px;
+  margin-right: 55px;
+}
+input {
+    border-radius: 4px;
+  margin: 4px;
+  padding: 8px 6px;
+  width: 350px;
+  background: white;
+  color: black;
+  font-size: 10px;
+  transition: all 1s ease-out;
+}
+input[type=submit] {
+  margin-left: -230px;
+  background: #fbdbba;
+  color: black;
+  text-align: right;
+  cursor: pointer;
+  transition: all 1s ease-out;
+  
+}
+input[type=submit]:hover {
+  background: #f7ac5f;
+  transition: all 0.3s ease-in;
+  color:white;
+}
+
+input:hover {
+  box-shadow: inset 0 0 5px black;
+}
+input:focus {
+  background: #fbdbba;
+  color: black;
+}
+.up {
+  top: 100px;
+  left: -60px;
+}
+.down {
+  top: -100px;
+  left: 60px;
+}
+#footer{
+    position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: gray;
+   text-align: center;
+   padding-bottom: 2px;
+   background-color: #f9c48d;
+}
+/*Login Page*/

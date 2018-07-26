@@ -1,0 +1,275 @@
+package org.apache.jsp;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.jsp.*;
+
+public final class Friend_jsp extends org.apache.jasper.runtime.HttpJspBase
+    implements org.apache.jasper.runtime.JspSourceDependent {
+
+  private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
+
+  private static java.util.List<String> _jspx_dependants;
+
+  private org.glassfish.jsp.api.ResourceInjector _jspx_resourceInjector;
+
+  public java.util.List<String> getDependants() {
+    return _jspx_dependants;
+  }
+
+  public void _jspService(HttpServletRequest request, HttpServletResponse response)
+        throws java.io.IOException, ServletException {
+
+    PageContext pageContext = null;
+    HttpSession session = null;
+    ServletContext application = null;
+    ServletConfig config = null;
+    JspWriter out = null;
+    Object page = this;
+    JspWriter _jspx_out = null;
+    PageContext _jspx_page_context = null;
+
+    try {
+      response.setContentType("text/html;charset=UTF-8");
+      pageContext = _jspxFactory.getPageContext(this, request, response,
+      			null, true, 8192, true);
+      _jspx_page_context = pageContext;
+      application = pageContext.getServletContext();
+      config = pageContext.getServletConfig();
+      session = pageContext.getSession();
+      out = pageContext.getOut();
+      _jspx_out = out;
+      _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
+
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("<!DOCTYPE html>\n");
+      out.write("<html>\n");
+      out.write("    <head>\n");
+      out.write("        <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n");
+      out.write("        <title>MAKEFRIEND SOCIAL NETWORK</title>\n");
+      out.write("        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no\">\n");
+      out.write("        <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\">\n");
+      out.write("        <script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js\"></script>\n");
+      out.write("        <link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css\" />\n");
+      out.write("        <script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>\n");
+      out.write("        <link rel=\"stylesheet\" href=\"css.css\">\n");
+      out.write("        ");
+      org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "menu.jsp", out, false);
+      out.write("\n");
+      out.write("        ");
+      org.apache.jasper.runtime.JspRuntimeLibrary.include(request, response, "footer.jsp", out, false);
+      out.write("\n");
+      out.write("        <script>\n");
+      out.write("            $(function () {\n");
+      out.write("                /* BOOTSNIPP FULLSCREEN FIX */\n");
+      out.write("                if (window.location == window.parent.location) {\n");
+      out.write("                    $('#back-to-bootsnipp').removeClass('hide');\n");
+      out.write("                }\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("                $('[data-toggle=\"tooltip\"]').tooltip();\n");
+      out.write("\n");
+      out.write("                $('#fullscreen').on('click', function (event) {\n");
+      out.write("                    event.preventDefault();\n");
+      out.write("                    window.parent.location = \"http://bootsnipp.com/iframe/4l0k2\";\n");
+      out.write("                });\n");
+      out.write("                $('a[href=\"#cant-do-all-the-work-for-you\"]').on('click', function (event) {\n");
+      out.write("                    event.preventDefault();\n");
+      out.write("                    $('#cant-do-all-the-work-for-you').modal('show');\n");
+      out.write("                })\n");
+      out.write("\n");
+      out.write("                $('[data-command=\"toggle-search\"]').on('click', function (event) {\n");
+      out.write("                    event.preventDefault();\n");
+      out.write("                    $(this).toggleClass('hide-search');\n");
+      out.write("\n");
+      out.write("                    if ($(this).hasClass('hide-search')) {\n");
+      out.write("                        $('.c-search').closest('.row').slideUp(100);\n");
+      out.write("                    } else {\n");
+      out.write("                        $('.c-search').closest('.row').slideDown(100);\n");
+      out.write("                    }\n");
+      out.write("                })\n");
+      out.write("\n");
+      out.write("                $('#contact-list').searchable({\n");
+      out.write("                    searchField: '#contact-list-search',\n");
+      out.write("                    selector: 'li',\n");
+      out.write("                    childSelector: '.col-xs-12',\n");
+      out.write("                    show: function (elem) {\n");
+      out.write("                        elem.slideDown(100);\n");
+      out.write("                    },\n");
+      out.write("                    hide: function (elem) {\n");
+      out.write("                        elem.slideUp(100);\n");
+      out.write("                    }\n");
+      out.write("                })\n");
+      out.write("            });\n");
+      out.write("\n");
+      out.write("        </script>\n");
+      out.write("\n");
+      out.write("    </head>\n");
+      out.write("    <body>\n");
+      out.write("        <div class=\"row\">\n");
+      out.write("            <div class=\"col-xs-12 col-sm-offset-3 col-sm-6\">\n");
+      out.write("                <div class=\"panel panel-default\">\n");
+      out.write("                    <div class=\"panel-heading c-list\">\n");
+      out.write("                        <span class=\"title\">Contacts</span>\n");
+      out.write("                        <ul class=\"pull-right c-controls\">\n");
+      out.write("                            <li><a href=\"#cant-do-all-the-work-for-you\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Add Contact\"><i class=\"glyphicon glyphicon-plus\"></i></a></li>\n");
+      out.write("                            <li><a href=\"#\" class=\"hide-search\" data-command=\"toggle-search\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Toggle Search\"><i class=\"fa fa-ellipsis-v\"></i></a></li>\n");
+      out.write("                        </ul>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <div class=\"row\" style=\"display: none;\">\n");
+      out.write("                        <div class=\"col-xs-12\">\n");
+      out.write("                            <div class=\"input-group c-search\">\n");
+      out.write("                                <input type=\"text\" class=\"form-control\" id=\"contact-list-search\">\n");
+      out.write("                                <span class=\"input-group-btn\">\n");
+      out.write("                                    <button class=\"btn btn-default\" type=\"button\"><span class=\"glyphicon glyphicon-search text-muted\"></span></button>\n");
+      out.write("                                </span>\n");
+      out.write("                            </div>\n");
+      out.write("                        </div>\n");
+      out.write("                    </div>\n");
+      out.write("\n");
+      out.write("                    <ul class=\"list-group\" id=\"contact-list\">\n");
+      out.write("                        <li class=\"list-group-item\">\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-3\">\n");
+      out.write("                                <img src=\"http://api.randomuser.me/portraits/men/49.jpg\" alt=\"Scott Stevens\" class=\"img-responsive img-circle\" />\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-9\">\n");
+      out.write("                                <span class=\"name\">Scott Stevens</span><br/>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-map-marker text-muted c-info\" data-toggle=\"tooltip\" title=\"5842 Hillcrest Rd\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">5842 Hillcrest Rd</span><br/></span>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-earphone text-muted c-info\" data-toggle=\"tooltip\" title=\"(870) 288-4149\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">(870) 288-4149</span><br/></span>\n");
+      out.write("                                <span class=\"fa fa-comments text-muted c-info\" data-toggle=\"tooltip\" title=\"scott.stevens@example.com\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">scott.stevens@example.com</span><br/></span>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"clearfix\"></div>\n");
+      out.write("                        </li>\n");
+      out.write("                        <li class=\"list-group-item\">\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-3\">\n");
+      out.write("                                <img src=\"http://api.randomuser.me/portraits/men/97.jpg\" alt=\"Seth Frazier\" class=\"img-responsive img-circle\" />\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-9\">\n");
+      out.write("                                <span class=\"name\">Seth Frazier</span><br/>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-map-marker text-muted c-info\" data-toggle=\"tooltip\" title=\"7396 E North St\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">7396 E North St</span><br/></span>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-earphone text-muted c-info\" data-toggle=\"tooltip\" title=\"(560) 180-4143\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">(560) 180-4143</span><br/></span>\n");
+      out.write("                                <span class=\"fa fa-comments text-muted c-info\" data-toggle=\"tooltip\" title=\"seth.frazier@example.com\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">seth.frazier@example.com</span><br/></span>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"clearfix\"></div>\n");
+      out.write("                        </li>\n");
+      out.write("                        <li class=\"list-group-item\">\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-3\">\n");
+      out.write("                                <img src=\"http://api.randomuser.me/portraits/women/90.jpg\" alt=\"Jean Myers\" class=\"img-responsive img-circle\" />\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-9\">\n");
+      out.write("                                <span class=\"name\">Jean Myers</span><br/>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-map-marker text-muted c-info\" data-toggle=\"tooltip\" title=\"4949 W Dallas St\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">4949 W Dallas St</span><br/></span>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-earphone text-muted c-info\" data-toggle=\"tooltip\" title=\"(477) 792-2822\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">(477) 792-2822</span><br/></span>\n");
+      out.write("                                <span class=\"fa fa-comments text-muted c-info\" data-toggle=\"tooltip\" title=\"jean.myers@example.com\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">jean.myers@example.com</span><br/></span>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"clearfix\"></div>\n");
+      out.write("                        </li>\n");
+      out.write("                        <li class=\"list-group-item\">\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-3\">\n");
+      out.write("                                <img src=\"http://api.randomuser.me/portraits/men/24.jpg\" alt=\"Todd Shelton\" class=\"img-responsive img-circle\" />\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-9\">\n");
+      out.write("                                <span class=\"name\">Todd Shelton</span><br/>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-map-marker text-muted c-info\" data-toggle=\"tooltip\" title=\"5133 Pecan Acres Ln\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">5133 Pecan Acres Ln</span><br/></span>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-earphone text-muted c-info\" data-toggle=\"tooltip\" title=\"(522) 991-3367\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">(522) 991-3367</span><br/></span>\n");
+      out.write("                                <span class=\"fa fa-comments text-muted c-info\" data-toggle=\"tooltip\" title=\"todd.shelton@example.com\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">todd.shelton@example.com</span><br/></span>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"clearfix\"></div>\n");
+      out.write("                        </li>\n");
+      out.write("                        <li class=\"list-group-item\">\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-3\">\n");
+      out.write("                                <img src=\"http://api.randomuser.me/portraits/women/34.jpg\" alt=\"Rosemary Porter\" class=\"img-responsive img-circle\" />\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-9\">\n");
+      out.write("                                <span class=\"name\">Rosemary Porter</span><br/>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-map-marker text-muted c-info\" data-toggle=\"tooltip\" title=\"5267 Cackson St\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">5267 Cackson St</span><br/></span>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-earphone text-muted c-info\" data-toggle=\"tooltip\" title=\"(497) 160-9776\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">(497) 160-9776</span><br/></span>\n");
+      out.write("                                <span class=\"fa fa-comments text-muted c-info\" data-toggle=\"tooltip\" title=\"rosemary.porter@example.com\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">rosemary.porter@example.com</span><br/></span>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"clearfix\"></div>\n");
+      out.write("                        </li>\n");
+      out.write("                        <li class=\"list-group-item\">\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-3\">\n");
+      out.write("                                <img src=\"http://api.randomuser.me/portraits/women/56.jpg\" alt=\"Debbie Schmidt\" class=\"img-responsive img-circle\" />\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-9\">\n");
+      out.write("                                <span class=\"name\">Debbie Schmidt</span><br/>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-map-marker text-muted c-info\" data-toggle=\"tooltip\" title=\"3903 W Alexander Rd\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">3903 W Alexander Rd</span><br/></span>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-earphone text-muted c-info\" data-toggle=\"tooltip\" title=\"(867) 322-1852\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">(867) 322-1852</span><br/></span>\n");
+      out.write("                                <span class=\"fa fa-comments text-muted c-info\" data-toggle=\"tooltip\" title=\"debbie.schmidt@example.com\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">debbie.schmidt@example.com</span><br/></span>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"clearfix\"></div>\n");
+      out.write("                        </li>\n");
+      out.write("                        <li class=\"list-group-item\">\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-3\">\n");
+      out.write("                                <img src=\"http://api.randomuser.me/portraits/women/76.jpg\" alt=\"Glenda Patterson\" class=\"img-responsive img-circle\" />\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"col-xs-12 col-sm-9\">\n");
+      out.write("                                <span class=\"name\">Glenda Patterson</span><br/>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-map-marker text-muted c-info\" data-toggle=\"tooltip\" title=\"5020 Poplar Dr\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">5020 Poplar Dr</span><br/></span>\n");
+      out.write("                                <span class=\"glyphicon glyphicon-earphone text-muted c-info\" data-toggle=\"tooltip\" title=\"(538) 718-7548\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">(538) 718-7548</span><br/></span>\n");
+      out.write("                                <span class=\"fa fa-comments text-muted c-info\" data-toggle=\"tooltip\" title=\"glenda.patterson@example.com\"></span>\n");
+      out.write("                                <span class=\"visible-xs\"> <span class=\"text-muted\">glenda.patterson@example.com</span><br/></span>\n");
+      out.write("                            </div>\n");
+      out.write("                            <div class=\"clearfix\"></div>\n");
+      out.write("                        </li>\n");
+      out.write("                    </ul>\n");
+      out.write("                </div>\n");
+      out.write("            </div>\n");
+      out.write("        </div>\n");
+      out.write("        <div id=\"cant-do-all-the-work-for-you\" class=\"modal fade bs-example-modal-sm\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"mySmallModalLabel\" aria-hidden=\"true\">\n");
+      out.write("            <div class=\"modal-dialog modal-sm\">\n");
+      out.write("                <div class=\"modal-content\">\n");
+      out.write("                    <div class=\"modal-header\">\n");
+      out.write("                        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">×</button>\n");
+      out.write("                        <h4 class=\"modal-title\" id=\"mySmallModalLabel\">Ooops!!!</h4>\n");
+      out.write("                    </div>\n");
+      out.write("                    <div class=\"modal-body\">\n");
+      out.write("                        <p>I am being lazy and do not want to program an \"Add User\" section into this snippet... So it looks like you'll have to do that for yourself.</p><br/>\n");
+      out.write("                        <p><strong>Sorry<br/>\n");
+      out.write("                                ~ Mouse0270</strong></p>\n");
+      out.write("                    </div>\n");
+      out.write("                </div>\n");
+      out.write("            </div>\n");
+      out.write("        </div>\n");
+      out.write("\n");
+      out.write("        <!-- JavaScrip Search Plugin -->\n");
+      out.write("        <script src=\"//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js\"></script>\n");
+      out.write("    </body>\n");
+      out.write("</html>\n");
+    } catch (Throwable t) {
+      if (!(t instanceof SkipPageException)){
+        out = _jspx_out;
+        if (out != null && out.getBufferSize() != 0)
+          out.clearBuffer();
+        if (_jspx_page_context != null) _jspx_page_context.handlePageException(t);
+        else throw new ServletException(t);
+      }
+    } finally {
+      _jspxFactory.releasePageContext(_jspx_page_context);
+    }
+  }
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet-mapping>
+        <servlet-name>Servlet_ShowUserPage</servlet-name>
+        <url-pattern>/Servlet_ShowUserPage</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <servlet>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>Controller.Servlet_Login</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Servlet_ShowUserPage</servlet-name>
+        <servlet-class>Controller.Servlet_ShowUserPage</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/Servlet_Login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>registrationServlet</servlet-name>
+        <servlet-class>Controller.Servlet_AddNewUser</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>registrationServlet</servlet-name>
+        <url-pattern>/Servlet_AddNewUser</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ForgetPassServlet</servlet-name>
+        <servlet-class>Controller.Servlet_ForgetPass</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ForgetPassServlet</servlet-name>
+        <url-pattern>/Servlet_ForgetPass</url-pattern>
+    </servlet-mapping>
+</web-app>
