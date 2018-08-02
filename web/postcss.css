@@ -1,0 +1,74 @@
+/*Post*/
+.watchCmt ul li{
+    text-decoration: none;
+}
+.tab-pane{
+    margin-bottom: 40px;
+}
+
+.panel-body{
+    background-color: white;
+}
+#datepost{
+    float:right;
+    font-size: 10px;
+}
+
+.PostContents{
+    float: center;
+}
+
+.LikeButton{
+    
+    float:right;
+    
+}
+
+.LikeButton input[type=button]{
+    width:70px;
+    height: 35px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+}
+
+.LikeButton input[type=button]:hover{
+    background-color: #d7d7d7;
+}
+
+.panel-heading a{
+    color:black;
+    font-size: 22px;
+    font-family: Lucida Grande;
+    text-decoration: none;
+}
+.panel-heading a:hover{
+    color:#925210;
+}
+.panel-heading {
+    background-color: #eeeeee;
+}
+.CmtAvatar{
+    float: left;
+}
+
+.CmtAvatar img{
+   margin: 0px 9px;
+}
+.Comment{
+    font-size: 11px;
+    float: left;
+}
+#Usenamepost a{
+    color:black;
+    text-decoration: none;
+}
+
+#Usenamepost a:hover{
+    color:#925210;
+}
+
+#WriteContents input[type=text]{
+    border-radius: 10px;
+    width: 600px;
+    height: 30px;
+}

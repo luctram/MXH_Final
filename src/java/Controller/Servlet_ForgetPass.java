@@ -73,7 +73,7 @@ public class Servlet_ForgetPass extends HttpServlet{
         response.setCharacterEncoding("utf-8");
         String pass1 = request.getParameter("password");
         String pass2 = request.getParameter("verifypassword");
-        String username = request.getParameter("username1");
+        String username = request.getParameter("username");
         String error = "";
         if (pass1.equals("")) {
             error = "Chưa nhập pass";
@@ -87,10 +87,11 @@ public class Servlet_ForgetPass extends HttpServlet{
         try {
             if (error.length() == 0) {
                 if (pass2.equals(pass1)){
-                    User u = new User();
-                    u.setPassword(pass1);
-                    UserDAO.ChangePass(u,username);
-                    System.out.println("DOI PASS THANH CONG");
+                    User user= new User(username, pass1);
+                    user.setUserName(username);
+                    user.setPassword(pass1);
+                    UserDAO.ChangePass(user);
+                    System.out.println("Đổi mật khẩu thành công. Vui lòng đăng nhập lại!!");
                     response.sendRedirect("http://localhost:8084/MXH_Final/FormLogin.jsp");
                     return;
                 }

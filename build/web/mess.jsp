@@ -4,6 +4,11 @@
     Author     : TramLuc
 --%>
 
+<%@page import="DAO.FriendsDAO"%>
+<%@page import="Model.Friends"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="DAO.UserDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,6 +25,13 @@
         <jsp:include page = "footer.jsp"></jsp:include>
     </head>
     <body>
+          <%
+        String username = getServletContext().getAttribute("username").toString();
+    String avatarlink = UserDAO.getAvatarToShowHomePage(username);
+    
+    List<Friends> listFriend = new ArrayList<Friends>();
+            listFriend = FriendsDAO.getAllFriendByUsername(username);
+    %>
               <div class="main_section">
             <div class="container">
                 <div class="chat_container">
@@ -40,30 +52,46 @@
                                 </button>
                                 
                             </div>
+                           
                             <div class="member_list">
+                                 <%
+                                for(int i = 0; i< listFriend.size(); i++){
+                                     String name, avatar;
+                                    name= UserDAO.getNameToShowHomePage(listFriend.get(i).getFriendName());
+                                    avatar = UserDAO.getAvatarToShowHomePage(listFriend.get(i).getFriendName());
+                                
+                            %>
                                 <ul class="list-unstyled">
                                     <li class="left clearfix">
                                         <span class="chat-img pull-left">
-                                            <img src="hinh dai dien" alt="User Avatar" class="img-circle">
+                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
                                         </span>
                                         <div class="chat-body clearfix">
                                             <div class="header_sec">
-                                                <strong class="primary-font">User Name</strong> <strong class="pull-right">
-                                                    09:45AM</strong>
+                                                <strong class="primary-font"><%=name%></strong> <strong class="pull-right">
+                                                   </strong>
                                             </div>
                                         </div>
                                     </li>
-                                </ul>
-                            </div></div>
+                                </ul><%}%>
+                            </div>
+                        
+                        </div>
                     </div>
                     <!--chat_sidebar-->
 
 
                     <div class="col-sm-9 message_section">
                         <div class="row">
+                            <%
+                                     String name, avatar;
+                                    name= UserDAO.getNameToShowHomePage("baocuong0501");
+                                    avatar = UserDAO.getAvatarToShowHomePage("baocuong0501");
+                                
+                            %>
                             <div class="new_message_head">
-                                <div class="pull-left"><a href="#"><img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="45px">&nbsp;&nbsp;&nbsp;    
-                                Trâm Lục</a></div>
+                                <div class="pull-left"><a href="#"><img src="<%=avatar%>" class="img-circle" width="45px">&nbsp;&nbsp;&nbsp;    
+                                <%=name%></a></div>
                                 <div class="pull-right">
                                    </div>
                             </div><!--new_message_head-->
@@ -72,7 +100,111 @@
                                 <ul class="list-unstyled">
                                     <li class="left clearfix">
                                         <span class="chat-img1 pull-left">
-                                            <img src="" alt="User Avatar" class="img-circle">
+                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>heyy Long time no see</p>
+                                            <div class="chat_time pull-right">09:40PM</div>
+                                        </div>
+                                    </li>
+                                    
+                                   
+                                    <li class="left clearfix admin_chat">
+                                        <span class="chat-img1 pull-right">
+                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>Hahaa yehh </p>
+                                            <div class="chat_time pull-left">09:41PM</div>
+                                        </div>
+                                    </li>
+                                    
+                                     <li class="left clearfix admin_chat">
+                                        <span class="chat-img1 pull-right">
+                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>i have been worked so now i'm busy :))</p>
+                                            <div class="chat_time pull-left">09:41PM</div>
+                                        </div>
+                                    </li>
+                                    
+                                     <li class="left clearfix admin_chat">
+                                        <span class="chat-img1 pull-right">
+                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>but tomorrow i'll off</p>
+                                            <div class="chat_time pull-left">09:42PM</div>
+                                        </div>
+                                    </li>
+                                        
+                                        
+                                    <li class="left clearfix">
+                                        <span class="chat-img1 pull-left">
+                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>Oh</p>
+                                            <div class="chat_time pull-right">09:45PM</div>
+                                        </div>
+                                    </li>
+                                    
+                                    <li class="left clearfix">
+                                        <span class="chat-img1 pull-left">
+                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>Would u wanna go coffee</p>
+                                            <div class="chat_time pull-right">09:45PM</div>
+                                        </div>
+                                    </li>
+                                    <li class="left clearfix">
+                                        <span class="chat-img1 pull-left">
+                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>Would u wanna go coffee</p>
+                                            <div class="chat_time pull-right">09:46PM</div>
+                                        </div>
+                                    </li>
+                                    
+                                   
+                                    <li class="left clearfix admin_chat">
+                                        <span class="chat-img1 pull-right">
+                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>I know a dog coffee shop </p>
+                                            <div class="chat_time pull-left">09:46PM</div>
+                                        </div>
+                                    </li>
+                                        
+                                       
+                                    <li class="left clearfix">
+                                        <span class="chat-img1 pull-left">
+                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>Great!!!!</p>
+                                            <div class="chat_time pull-right">09:40PM</div>
+                                        </div>
+                                    </li>
+                                    
+                                   
+                                    <li class="left clearfix admin_chat">
+                                        <span class="chat-img1 pull-right">
+                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
+                                        </span>
+                                        <div class="chat-body1 clearfix">
+                                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                                            <div class="chat_time pull-left">09:40PM</div>
+                                        </div>
+                                    </li>
+                               
+                                    <li class="left clearfix">
+                                        <span class="chat-img1 pull-left">
+                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
                                         </span>
                                         <div class="chat-body1 clearfix">
                                             <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
@@ -83,7 +215,7 @@
                                    
                                     <li class="left clearfix admin_chat">
                                         <span class="chat-img1 pull-right">
-                                            <img src="" alt="User Avatar" class="img-circle">
+                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
                                         </span>
                                         <div class="chat-body1 clearfix">
                                             <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>

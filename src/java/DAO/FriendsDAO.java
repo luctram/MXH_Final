@@ -22,7 +22,7 @@ public class FriendsDAO {
     final static Connection cons = DBConnect_MySQL.getConnection();
     //Get All Friend By Username
     public static ArrayList<Friends> getAllFriendByUsername(String Username) {
-        String sql = "SELECT * FROM db_mxh.friendid WHERE Username LIKE '%"+Username+"%'";
+        String sql = "SELECT * FROM db_mxh.friendlist WHERE Username LIKE '%"+Username+"%'";
         ArrayList<Friends> list = new ArrayList<Friends>();
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
@@ -33,7 +33,6 @@ public class FriendsDAO {
                 friend.setFriendName(rs.getString("FriendName"));
                 list.add(friend);
             }
-            cons.close();
         } 
         catch (SQLException e) {
             e.printStackTrace();
@@ -58,7 +57,7 @@ public class FriendsDAO {
                 user.setAvatarLink(rs.getString("Avatar"));
             }
            
-           cons.close();
+           rs.close();
        }
        catch (SQLException e) {
             e.printStackTrace();
@@ -69,7 +68,7 @@ public class FriendsDAO {
     //Add New Friend By Username
     public static boolean AddNewFriend(Friends friend) throws SQLException {
         try {
-            String sql = "INSERT INTO db_mxh.friendid (Username, FriendName) VALUE(?,?)";
+            String sql = "INSERT INTO db_mxh.friendlist (Username, FriendName) VALUE(?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
 
             ps.setString(1, friend.getUserName());
@@ -85,7 +84,7 @@ public class FriendsDAO {
     public static boolean deleteFriend(String Username, String Friendname) throws SQLException {
     
        try {
-        String sql = "DELETE db_mxh.friendid WHERE Username = ? AND FriendName= ?";
+        String sql = "DELETE db_mxh.friendlist WHERE Username = ? AND FriendName= ?";
         PreparedStatement ps = cons.prepareCall(sql);
         ps.setString(1,Username);
         ps.setString(2,Friendname);
@@ -96,4 +95,6 @@ public class FriendsDAO {
         return false;
     }
     }
+    
+    
 }

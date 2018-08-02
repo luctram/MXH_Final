@@ -61,12 +61,16 @@ public class Servlet_Login extends HttpServlet {
                         getServletContext().setAttribute("username",acc.get(i).getUserName()); // truyen username về jsp
                         System.out.println("Login: " + acc.get(i).getUserName());
                         request.getRequestDispatcher("Home.jsp").forward(request, response);
+                        request.getRequestDispatcher("mess.jsp").forward(request, response);
                         request.getRequestDispatcher("menu.jsp").forward(request, response);
                         request.getRequestDispatcher("UserPage.jsp").forward(request, response);
                         request.getRequestDispatcher("UserInfo.jsp").forward(request, response);
                         request.getRequestDispatcher("Feedback.jsp").forward(request, response);
                         request.getRequestDispatcher("Friends.jsp").forward(request, response);
                          request.getRequestDispatcher("NewPost.jsp").forward(request, response);
+                         request.getRequestDispatcher("game.jsp").forward(request, response);
+                          request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+                           request.getRequestDispatcher("ChangeAvatar.jsp").forward(request, response);
                         
                         response.sendRedirect("http://localhost:8084/MXH_Final/Home.jsp");
                         return;

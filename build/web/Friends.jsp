@@ -40,16 +40,16 @@
                 <br>
             
             <div class="row">
-
-                <div class="listfriend">
-                    <div class="col-sm-12">
-                        <%
+ <%
                             for(int i = 0; i< listFriend.size(); i++){
                                 User user= new User();
                                 user = FriendsDAO.searchUser(listFriend.get(i).getFriendName());%>
+                <div class="listfriend">
+                    <div class="col-sm-12">
+                       
                         
                         <div class="col-sm-1 FriendAvatar">
-                            <img src="<%=user.getAvatarLink()%>" class="img-circle" width="60px">
+                            <img src="<%=user.getAvatarLink()%>" class="img-circle" width="55px" height="53px">
                         </div>
                         <div class="col-sm-9 FriendName">
                             <h4><a href="#"><%=user.getName()%></a></h4>
@@ -62,12 +62,12 @@
                            <form>
                                <input type="submit" value="Hủy bạn bè">
                            </form>
-                        </div> <%   }
-                        %>
+                        </div> 
                     </div>
                     <div class="clearfix"></div>
                     <hr />
-                </div>
+                </div><%   }
+                        %>
             </div>
         </div>
     </body>

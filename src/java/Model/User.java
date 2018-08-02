@@ -32,7 +32,23 @@ public class User {
     }
 
 
+    public User(String userName, String email, String phone, String name, String otherName, String address, String hometown, String hobby) {
+        this.userName = userName;
+        this.email = email;
+        this.phone = phone;
+        this.name = name;
+        this.otherName = otherName;
+        this.address = address;
+        this.hometown = hometown;
+        this.hobby = hobby;
+    }
 
+
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+        this.avatarLink = password;
+    }
     
     
     public String getOtherName() {

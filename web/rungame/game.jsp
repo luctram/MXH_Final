@@ -1,3 +1,4 @@
+<%@page import="DAO.UserDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en-us">
   <head>
@@ -26,11 +27,12 @@
                 </div>
                 
                 <ul class="nav navbar-nav">
-                    <li><a href="../UserPage.jsp">Trâm Lục</a></li>
-                    <li><a href="#">Lời mời kết bạn</a></li>
-                    <li><a href="../mess.jsp">Tin nhắn</a></li>
-                    <li><a href="#">Thông báo</a></li>
-                    <li><a href="../Setting.jsp">Cài đặt</a></li>
+                    <li><a href="./UserPage.jsp"><i class="glyphicon glyphicon-heart"></i> <%=UserDAO.getNameToShowHomePage(getServletContext().getAttribute("username").toString())%></a></li>
+                    <li><a href="./Friends.jsp"><i class="glyphicon glyphicon-user"></i> Kết bạn</a></li>
+                    <li><a href="./NewPost.jsp"><i class="fa fa-edit"></i> Bài đăng mới</a></li>
+                    <li><a href="./mess.jsp"><i class="fa fa-comments"></i> Tin nhắn</a></li>
+                    <li><a href="./Feedback.jsp"><i class="glyphicon glyphicon-send"></i> Phản hồi</a></li>
+                    <li><a href="./UserInfo.jsp"><i class="fa fa-cogs"></i> Cài đặt</a></li>
                 </ul>
                 
                 <ul class="nav navbar-nav navbar-right">

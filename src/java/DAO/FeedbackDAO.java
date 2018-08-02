@@ -32,10 +32,10 @@ public class FeedbackDAO {
             ps.setString(2, fb.getContents());
             ps.setString(3, fb.getDate());
             int temp = ps.executeUpdate();
-            cons.close();
+          
             return temp == 1;
         } catch (Exception e) {
-            cons.close();
+           
             return false;
         }
     }
@@ -56,10 +56,10 @@ public class FeedbackDAO {
                 feedback.add(fb);
             }
         } catch (SQLException e) {
-            cons.close();
+   
             e.printStackTrace();
         }
-        cons.close();
+     
         return feedback;
     }
 }

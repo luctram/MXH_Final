@@ -4,6 +4,12 @@
     Author     : TramLuc
 --%>
 
+<%@page import="DAO.UserPostDAO"%>
+<%@page import="Model.UserPost"%>
+<%@page import="DAO.FriendsDAO"%>
+<%@page import="Model.Friends"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="Model.User"%>
 <%@page import="DAO.UserDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,14 +24,18 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="css.css">
+        <link rel="stylesheet" href="postcss.css">
         <jsp:include page="menu.jsp"></jsp:include>
         <jsp:include page = "footer.jsp"></jsp:include>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
 </head>
 <body>
     <%
-    String avatarlink = UserDAO.getAvatarToShowHomePage(getServletContext().getAttribute("username").toString());
-    System.out.println("ACB: " + avatarlink);
+        String username = getServletContext().getAttribute("username").toString();
+    String avatarlink = UserDAO.getAvatarToShowHomePage(username);
+    
+    List<Friends> listFriend = new ArrayList<Friends>();
+            listFriend = FriendsDAO.getAllFriendByUsername(username);
     %>
     <div class="main">
         <div class="container">
@@ -43,213 +53,145 @@
                 </div>
 
                 <div class="col-md-8 content">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a href="#"><img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="45px">&nbsp;&nbsp;&nbsp;    
-                                Trâm Lục</a>
-                            <div id="datepost">2018-27-7
-                                <br><br>
-                                <p>16&nbsp;bình luận&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i></p>
-                            </div>
-                        </div>   
-                        <div class="panel-body">
-                            <div class="PostContents">
-                                hôm nay dui qué đuy
-                            </div>
-                            <div class="LikeButton">
-                                <input type="button" value="Thích">
-                            </div>
+                    <%
+                        List<UserPost> upost = new ArrayList<UserPost>();
+                        
+                        for(int i=0; i < listFriend.size(); i++){
+                            upost = UserPostDAO.getAllPostByUsername(listFriend.get(i).getFriendName());
+                         
+                            String name, avatar;
+                            name= UserDAO.getNameToShowHomePage(listFriend.get(i).getFriendName());
+                            avatar = UserDAO.getAvatarToShowHomePage(listFriend.get(i).getFriendName());
+                            for(int j=0; j< upost.size(); j++){
+                                
+                                %>
+                    <div>
+                    <div class="panel-heading">
+                        <a href="#"><img src="<%=avatar%>" class="img-circle" width="45px" height="43px">&nbsp;&nbsp;&nbsp;    
+                            <%=name%></a>
+                        <div id="datepost"><%=upost.get(j).getDate()%>
+                            <br><br>
+                            <p>16&nbsp;bình luận&nbsp;&nbsp;&nbsp;<%=upost.get(j).getCountLike()%>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i></p>
                         </div>
-                        <div class="panel-footer">
-                            <div data-spy="scroll">
-                                <div class="tabbable-line">
-                                    <ul class="nav nav-tabs ">
+                    </div>   
 
-                                        <li class="active">
-                                            <a href="#tab_default_1" data-toggle="tab">
-                                                Viết bình luận</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab_default_2" data-toggle="tab">
-                                                Xem bình luận</a>
-                                        </li>
-                                    </ul>
-                                    
-                                    <div class="tab-content">
-                                        <div class="tab-pane active" id="tab_default_1">
+                    <div class="panel-body">
+                        <div class="PostContents">
+                            <%=upost.get(j).getContent()%>
+                        </div>
+                        <div class="LikeButton">
+                            <input type="button" value="Thích">
+                        </div>
+                    </div>
 
-                                            <div class="CmtAvatar">
-                                                <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px">
+                    <div class="panel-footer">
+                        <div data-spy="scroll">
+                            <div class="tabbable-line">
+                                <ul class="nav nav-tabs ">
+
+                                    <li class="active">
+                                        <a href="#tab_default_1_1" data-toggle="tab">
+                                            Viết bình luận</a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab_default_2_1" data-toggle="tab">
+                                            Xem bình luận</a>
+                                    </li>
+                                </ul> <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_default_1_1">
+                                        <div class="CmtAvatar">
+                                            <img src="Avatar/tmp362622951964540930.jpg" class="img-circle" width="30px" height="30px">
+
+                                        </div>
+                                        <div class="Comment">
+                                            <div id="Usenamepost">
+                                                <a href="">Trâm Lục</a>
+                                            </div>
+                                            <div id="WriteContents">
+                                                <form>
+                                                    <input type="text" placeholder="Viết bình luận">
+                                                </form>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane" id="tab_default_2_1">
+                                        <div> <div class="CmtAvatar">
+                                                <img src="Avatar/tmp362622951964540930.jpg" class="img-circle" width="30px">
 
                                             </div>
                                             <div class="Comment">
                                                 <div id="Usenamepost">
                                                     <a href="">Trâm Lục</a>
                                                 </div>
-                                                <div id="WriteContents">
-                                                    <form action="" method="POST">
-                                                        <input type="text" placeholder="Viết bình luận">
-                                                    </form>
+                                                <div id="CmtContents">
+                                                    sao dị ba :))
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane watchCmt" id="tab_default_2">
-                                            <ul>
-                                                <li>
-                                                     <div class="CmtAvatar">
-                                                <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px">
-
-                                            </div>
-                                            <div class="Comment">
-                                                <div id="Usenamepost">
-                                                    <a href="">Trâm Lục</a>
-                                                </div>
-                                                <div id="PostContents">
-                                                    Ahihi chắc dui
-                                                </div>
-                                            </div> <hr>
-                                                </li>
-                                            </ul>
-                                            <ul>
-                                               
-                                            <div class="CmtAvatar">
-                                                <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px">
+                                        <br><br>
+                                        <div><div class="CmtAvatar">
+                                                <img src="Avatar/baocuong0501.png" class="img-circle" width="30px">
 
                                             </div>
                                             <div class="Comment">
                                                 <div id="Usenamepost">
                                                     <a href=""> Bảo Cường</a>
                                                 </div>
-                                                <div id="PostContents">
-                                                    Sao dui dọ kể nghe dới =))
-                                                </div>
-                                            </div>
-                                            </ul>
-                                            
-                                        </div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a href="#"><img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="45px">&nbsp;&nbsp;&nbsp;    
-                                Trâm Lục</a>
-                            <div id="datepost">2018-27-7
-                                <br><br>
-                                <p>16&nbsp;bình luận&nbsp;&nbsp;&nbsp;16&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i></p>
-                            </div>
-                        </div>   
-                        <div class="panel-body">
-                            <div class="PostContents">
-                                hôm nay dui qué đuy
-                            </div>
-                            <div class="LikeButton">
-                                <input type="button" value="Thích">
-                            </div>
-                        </div>
-                        <div class="panel-footer">
-                            <div data-spy="scroll">
-                                <div class="tabbable-line">
-                                    <ul class="nav nav-tabs ">
-
-                                        <li class="active">
-                                            <a href="#tab_default_1" data-toggle="tab">
-                                                Viết bình luận</a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab_default_2" data-toggle="tab">
-                                                Xem bình luận</a>
-                                        </li>
-                                    </ul> <div class="tab-content">
-                                        <div class="tab-pane active" id="tab_default_1">
-
-                                            <div class="CmtAvatar">
-                                                <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px">
-
-                                            </div>
-                                            <div class="Comment">
-                                                <div id="Usenamepost">
-                                                    <a href="">Trâm Lục</a>
-                                                </div>
-                                                <div id="WriteContents">
-                                                    <form>
-                                                        <input type="text" placeholder="Viết bình luận">
-                                                    </form>
-
+                                                <div id="CmtContents">
+                                                    hiuhiu :((
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="tab_default_2">
-                                            <div class="CmtAvatar">
-                                                <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px">
+                                        <br>
+                                        <br>
+                                        <div><div class="CmtAvatar">
+                                                <img src="Avatar/tmp362622951964540930.jpg" class="img-circle" width="30px">
 
                                             </div>
                                             <div class="Comment">
                                                 <div id="Usenamepost">
-                                                    <a href="">Trâm Lục</a>
+                                                    <a href=""> Trâm lục</a>
                                                 </div>
-                                                <div id="PostContents">
-                                                    Ahihi chắc dui
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="CmtAvatar">
-                                                <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px">
-
-                                            </div>
-                                            <div class="Comment">
-                                                <div id="Usenamepost">
-                                                    <a href=""> Bảo Cường</a>
-                                                </div>
-                                                <div id="PostContents">
-                                                    Sao dui dọ kể nghe dới =))
+                                                <div id="CmtContents">
+                                                    kể nghe dới =))
                                                 </div>
                                             </div>
-                                            <br>
-                                        </div></div>
+                                        </div><br>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                    <br><%
+                            }
+                        }
+                    %>
                 </div>
 
                 <div class="col-md-2">
 
                     <div class="member_list">
                         <ul class="list-unstyled">
+                         <%
+                              for(int i = 0; i< listFriend.size(); i++){
+                                User user= new User();
+                                user = FriendsDAO.searchUser(listFriend.get(i).getFriendName());
+                         %>
                             <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="img/tram.jpg" alt="User Avatar" class="img-circle">
+                                <a href=""><span class="chat-img pull-left">
+                                    <img src="<%=user.getAvatarLink()%>" class="img-circle">
                                 </span>
                                 <div class="chat-body clearfix">
                                     <div class="header_sec">
-                                        <strong class="primary-font">Tram Luc</strong> 
+                                        <strong class="primary-font listfriendhome"><%=user.getName()%></strong> 
                                     </div>
-                                </div>
-                            </li>
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="img/fulllogo.jpg" alt="User Avatar" class="img-circle">
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header_sec">
-                                        <strong class="primary-font">Bao Cuong</strong> 
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="left clearfix">
-                                <span class="chat-img pull-left">
-                                    <img src="img/logo.jpg" alt="User Avatar" class="img-circle">
-                                </span>
-                                <div class="chat-body clearfix">
-                                    <div class="header_sec">
-                                        <strong class="primary-font">Tram tram</strong> 
-                                    </div>
-                                </div>
+                                </div></a>
                             </li>
 
-
+<%}%>
                         </ul>
                     </div>
                 </div>

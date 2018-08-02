@@ -21,55 +21,52 @@
         <jsp:include page="menu.jsp"></jsp:include>
         <jsp:include page = "footer.jsp"></jsp:include>
             <script>
-                   var inputs = document.querySelectorAll('.inputfile');
-        Array.prototype.forEach.call(inputs, function (input)
-        {
-            var label = input.nextElementSibling,
-                    labelVal = label.innerHTML;
-
-            input.addEventListener('change', function (e)
-            {
+                var inputs = document.querySelectorAll('.inputfile');
+                Array.prototype.forEach.call(inputs, function (input)
+                {
+                var label = input.nextElementSibling,
+                        labelVal = label.innerHTML;
+                input.addEventListener('change', function (e)
+                {
                 var fileName = '';
                 if (this.files && this.files.length > 1)
-                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                        fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
                 else
-                    fileName = e.target.value.split('\\').pop();
-
+                        fileName = e.target.value.split('\\').pop();
                 if (fileName)
-                    label.querySelector('span').innerHTML = fileName;
+                        label.querySelector('span').innerHTML = fileName;
                 else
-                    label.innerHTML = labelVal;
-            });
-        });
-        
-        function selectYear(obj){
-            var options = obj.children;
-            String year="";
-            for(int i = 0; i< options.length; i++){
+                        label.innerHTML = labelVal;
+                });
+                });
+                function selectYear(obj){
+                var options = obj.children;
+                String year = "";
+                for (int i = 0; i < options.length; i++){
                 if (options[i].selected){
-                    year += options[i].values;
+                year += options[i].values;
                 }
-            }
-        }
-        function selectMonth(obj){
-            var options = obj.children;
-            String month="";
-            for(int i = 0; i< options.length; i++){
+                }
+                }
+                function selectMonth(obj){
+                var options = obj.children;
+                String month = "";
+                for (int i = 0; i < options.length; i++){
                 if (options[i].selected){
-                    month += options[i].values;
+                month += options[i].values;
                 }
-            }
-        }
-        function selectDay(obj){
-            var options = obj.children;
-            String day="";
-            for(int i = 0; i< options.length; i++){
+                }
+                }
+                function selectDay(obj){
+                var options = obj.children;
+                String day = "";
+                for (int i = 0; i < options.length; i++){
                 if (options[i].selected){
-                    day += options[i].values;
+                day += options[i].values;
                 }
-            }
-        }
-     
+                }
+                }
+
             </script>
         </head>
         <body>
@@ -99,20 +96,17 @@
 
                     <p><a href="ChangePassword.jsp">Đổi mật khẩu</a>
                         <img src="img/security1.png" width="25px"></p>
-
-                    <p><a href="">Bạn bè</a>
-                        <img src="img/friend1.png" width="25px"></p>
-
-                    <p><a href="">Game</a>
-                        <img src="img/game.png" width="25px"></p>
+                    <p><a href="ChangeAvatar.jsp">Đổi hình đại diện</a>
+                        <i class="fa fa-user-circle"></i></p>
                 </div>
             </div>
             <div class="col-md-9 ttcnright">
-                <form action="./Servlet_EditInfoUser" method="post">
+                <form action="./Servlet_EditInfoUser" method="POST">
                     <h3>CÀI ĐẶT TÀI KHOẢN</h3>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-horizontal">
+                                <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username")%>">
                                 <label for="name">Tên</label>
                                 <input type="text" class="form-control" id="name" value="<%=user.getName()%>" name="name">
                                 <br><label for="othername">Tên khác</label>
@@ -293,7 +287,7 @@
                                         <option value="30">30</option>
                                         <option value="31">31</option>
                                     </select>
-                                        
+
                                 </div>
                             </div>
                         </div>
@@ -304,31 +298,16 @@
                             <h3 class="panel-title pull-left">Sở thích</h3>
                             <br><br>
                             <div class="form-horizontal">
-                                <input type="text" class="form-control" id="hobby" placeholder="Like #movies #kittens #travel #teacher #newyork" value="<%=user.getHobby()%>" name="hobby">
+                                <input type="text" class="form-control" name="hobby" placeholder="Like #movies #kittens #travel #teacher #newyork" value="<%=user.getHobby()%>" name="hobby">
                             </div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h3 class="panel-title pull-left">Ảnh đại diện</h3>
-                            <br><br>
-                            <div align="center">
-                               
-                                <div class="col-lg-12 col-md-12">
-                                    <input type="file" name="fileimage" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple />
-                                    <label for="file"><i class="fa fa-image"></i> Thêm ảnh</label>
-                                </div>
-                                 <div class="col-lg-12 col-md-12">
-                                    <img class="img-thumbnail img-responsive" src="img/logo.png" width="300px" height="300px">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                            <input type="submit" value="Lưu thông tin">
+                   
+                    <input type="submit" value="Lưu thông tin">
 
                 </form>
             </div>
         </div>
-
+       
     </body>
 </html>

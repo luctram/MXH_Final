@@ -19,7 +19,9 @@
         <jsp:include page = "footer.jsp"></jsp:include>
     </head>
     <body>
-
+        <%
+            System.out.println("RESET: " + getServletContext().getAttribute("username1"));
+        %>
 
         <main role="main" class="container">
              <div class="col-md-6">

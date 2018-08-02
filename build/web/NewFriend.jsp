@@ -19,50 +19,67 @@
         <link rel="stylesheet" href="css.css">
         <jsp:include page="menu.jsp"></jsp:include>
         <jsp:include page = "footer.jsp"></jsp:include>
-       <c:set var="root" value="${pageContext.request.contextPath}"/>
-    </head>
-    <body>
-        <div class="container">
-                <h2>Danh sách bạn bè</h2>
-                <br>
-                <div class="AddFriendForm">
-                    
-                    <form action="./Servlet_SearchFriend" method="POST">
-                        <input type="text" name="friendinfo" placeholder=" Nhập tên/số điện thoại/email bạn cần tìm">
-                        <input type="submit" value="Tìm">
-                        
-                    </form>
-                </div>
-                <br>
+    <c:set var="root" value="${pageContext.request.contextPath}"/>
+  
+</head>
+<body>
+    <div class="container">
+        <h2>THÊM BẠN MỚI</h2>
+        <br>
+        <div class="AddFriendForm">
+
+            <form action="./Servlet_SearchFriend" method="POST" id="formfriend">
+                <input type="text" name="friendinfo" placeholder=" Nhập tên/số điện thoại/email bạn cần tìm">
+                <input type="submit" value="Tìm" name="search">
+
+            </form>
             
-            <div class="row">
-                <%
-                    User user= new User();
-                    user = (User) getServletContext().getAttribute("searchFriend");
-                    System.out.println("AAAAAAAAA " + user.getName());
-                %>
-                <div class="listfriend">
-                    <div class="col-sm-12">
-                        <div class="col-sm-1 FriendAvatar">
-                            <img src="<%=user.getAvatarLink()%>" class="img-circle" width="60px">
-                        </div>
-                        <div class="col-sm-9 FriendName">
-                            <h4><a href="#"><%=user.getName()%></a></h4>
-                        </div>
-                        <div class="col-sm-2">
-                            <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="<%=user.getAddress()%>"></span>
-                           
-                            <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="<%=user.getPhone()%>"></span>
-                         
-                            <span class="glyphicon glyphicon-envelope text-muted c-info" data-toggle="tooltip" title="<%=user.getEmail()%>"></span>
-                      
-                            <span class="fa fa-user-plus text-muted c-info" data-toggle="tooltip" title="Gửi lời mời kết bạn"></span>
-                        </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="listfriend">
+                <div class="col-sm-12">
+                    <div class="col-sm-1 FriendAvatar">
+                        <img src="" class="img-circle" width="55px" height="53px"  id="img">
                     </div>
-                    <div class="clearfix"></div>
-                    <hr />
+                    <div class="col-sm-9 FriendName">
+                        <h4><a href="#" id="namefriend"></a></h4>
+                    </div>
+                    <div class="col-sm-2">
+                        <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="" id="addressfriend"></span>
+
+                        <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="" id="phonefriend"></span>
+
+                        <span class="glyphicon glyphicon-envelope text-muted c-info" data-toggle="tooltip" title="" id="emailfriend"></span>
+
+                        <span class="fa fa-user-plus text-muted c-info" data-toggle="tooltip" title="Gửi lời mời kết bạn"></span>
+                    </div>
                 </div>
+                <div class="clearfix"></div>
+                <hr />
             </div>
         </div>
-    </body>
+    </div>
+       <script type="text/javascript">
+            var frm = $('#formfriend');
+            frm.submit(function(){
+                
+                $.ajax({
+                    type: frm.attr('method'), url: frm.attr('action'), data: frm.serialize(), success: function(data){
+                        var result = data;
+                        //$('#result').attr("value",result);
+                        var b= result.split("-");
+                         
+                         $('#img').attr("src",b[5]);
+                         $('#addressfriend').attr("title",b[4]);
+                          $('#phonefriend').attr("title",b[3]);
+                           $('#emailfriend').attr("title",b[2]);
+                           document.getElementById("namefriend").innerHTML = b[1];
+                    }
+                });
+                return false;
+            });
+        </script>
+</body>
 </html>

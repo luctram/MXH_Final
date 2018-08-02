@@ -28,7 +28,7 @@ public class Servlet_SearchFriend extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         String infoUser = request.getParameter("friendinfo");
-       
+       PrintWriter out =response.getWriter();
         String error = "";
         if (infoUser.equals("")) {
             error = "Chưa nhập tên đăng nhập";
@@ -44,11 +44,12 @@ public class Servlet_SearchFriend extends HttpServlet {
                    System.out.println("Tai khoan ko ton tai");
                    return;
                }
-               else{
-                   getServletContext().setAttribute("searchFriend",user); 
-                    request.getRequestDispatcher("NewFriend.jsp").forward(request, response);
-                response.sendRedirect("http://localhost:8084/MXH_Final/FormLogin.jsp");}
-                return;
+               else{System.out.println("AAAAAAAAAA: "+user.getAddress());
+                  out.print(user.getUserName()+"-"+user.getName() +"-" + user.getEmail() + "-" + user.getPhone() + "-" + user.getAddress() + "-" + user.getAvatarLink());
+               return;
+               }
+               
+                
             } else {
                 System.out.println("<script>alert('Nhập thiếu tên đăng nhập hoặc mật khẩu!');</script>");
                 response.sendRedirect("http://localhost:8084/MXH_Final/NewFriend.jsp");

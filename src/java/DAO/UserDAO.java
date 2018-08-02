@@ -42,10 +42,9 @@ public class UserDAO {
          ps.setString(10,user.getHobby());
          ps.setString(11,user.getAvatarLink());
          int temp = ps.executeUpdate();
-         cons.close();
+       
          return temp == 1 ;
     } catch (Exception e) {
-        cons.close();
          return false;
     }
 }
@@ -65,11 +64,10 @@ public class UserDAO {
                 user.add(u);
             }
     } catch (SQLException e) {
-         cons.close();
+         
         e.printStackTrace();
          
     }
-         cons.close();
   return user;
 }
 // Lay thong tin hien thi trang chu sau khi dang nhap
@@ -84,7 +82,7 @@ public class UserDAO {
               name = rs.getString("Name");
          }
         }catch(SQLException e){
-            cons.close();
+    
             e.printStackTrace();
         }
        return name;
@@ -102,7 +100,7 @@ public class UserDAO {
               link = rs.getString("Avatar");
          }
         }catch(SQLException e){
-            cons.close();
+   
             e.printStackTrace();
         }
        return link;
@@ -119,14 +117,13 @@ public class UserDAO {
         }else {
             System.out.println(cons.toString());
         }
-        String sql = "SELECT Userid,Username,Password FROM db_mxh.user" ;
+        String sql = "SELECT Username,Password FROM db_mxh.user" ;
         ArrayList<User> user = new ArrayList<>();
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 User u = new User();
-                u.setUserId(rs.getInt("Userid"));
                 u.setUserName(rs.getString("Username"));
                 u.setPassword(rs.getString("Password"));
                 user.add(u);
@@ -134,10 +131,9 @@ public class UserDAO {
             
         }
         catch(SQLException e){
-            cons.close();
+       
             e.printStackTrace();
         }
-         cons.close();
         return user;
     }
     
@@ -161,21 +157,23 @@ public class UserDAO {
     }
     
     //Doi pass
-    public static boolean ChangePass(User user, String Username){
+    public static boolean ChangePass(User u) throws SQLException{
         Connection cons = DBConnect_MySQL.getConnection();
          try {
-         String sql = "UPDATE db_mxh.user SET Password= ? WHERE Username = '" + Username + "'";
+         String sql = "UPDATE db_mxh.user SET Password=? WHERE Username = ?";
          PreparedStatement ps = cons.prepareCall(sql);
-         
-         ps.setString(1, user.getPassword());
+             
+         ps.setString(1, u.getPassword());
+         ps.setString(2, u.getUserName());
 
          int temp = ps.executeUpdate();
+         System.out.println(sql);
          return temp == 1 ;
     } catch (Exception e) {
          return false;
     }
+         
     }
-    //Lay thong tin hien thi trong phan Setting
     //Lay tat ca thong tin cua 1 user
     public static User getInfoByUsername(String username){
         Connection cons = DBConnect_MySQL.getConnection();
@@ -206,27 +204,39 @@ public class UserDAO {
     public static boolean editUser(User user) throws SQLException {
         Connection cons = DBConnect_MySQL.getConnection();
     try {
-         String sql = "UPDATE db_mxh.user SET Name=?, Othername= ? , Phone= ?, Email=?, Hometown=?, Address=?, BDay=?,Hobby=? WHERE Username= ?";
+         String sql = "UPDATE db_mxh.user SET Name=?, Othername=? , Phone= ?, Email=?, Hometown=?, Address=?,Hobby=? WHERE Username= ?";
          PreparedStatement ps = cons.prepareCall(sql);
-         
+                 
          ps.setString(1,user.getName());
          ps.setString(2,user.getOtherName());
          ps.setString(3,user.getPhone());
          ps.setString(4,user.getEmail());
          ps.setString(5, user.getHometown());
          ps.setString(6, user.getAddress());
-         ps.setString(7, user.getBDay());
-         ps.setString(8, user.getHobby());
-         ps.setString(9,user.getUserName());
+       //  ps.setString(7, user.getBDay());
+         ps.setString(7, user.getHobby());
+         ps.setString(8,user.getUserName());
+         int temp = ps.executeUpdate();
+         
+         return temp == 1 ;
+    } catch (Exception e) {
+         return false;
+    }
+} 
+    
+     //Sua hinh dai dien
+       public static boolean editAvatar(User user) throws SQLException {
+            Connection cons = DBConnect_MySQL.getConnection();
+    try {
+         String sql = "UPDATE db_mxh.user SET Avatar= ? WHERE Username= ?";
+         PreparedStatement ps = cons.prepareCall(sql);
+         ps.setString(1,user.getAvatarLink());
+         ps.setString(2,user.getUserName());
          int temp = ps.executeUpdate();
          return temp == 1 ;
     } catch (Exception e) {
          return false;
     }
-}
-    
-   
-   
-    
-   
+
+}  
 }

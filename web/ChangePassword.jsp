@@ -29,12 +29,8 @@
 
                     <p><a href="ChangePassword.jsp">Đổi mật khẩu</a>
                         <img src="img/security1.png" width="25px"></p>
-
-                    <p><a href="">Bạn bè</a>
-                        <img src="img/friend1.png" width="25px"></p>
-
-                    <p><a href="">Game</a>
-                        <img src="img/game.png" width="25px"></p>
+<p><a href="ChangeAvatar.jsp">Đổi hình đại diện</a>
+                        <i class="fa fa-user-circle"></i></p>
                 </div>
             </div>
 
@@ -42,10 +38,10 @@
 
                 <div id="dmkright">
                     <form action="./Servlet_ForgetPass" method="POST">
-                        Mật khẩu mới&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password"><br><br>
-                        Nhập lại mật khẩu mới&nbsp;<input type="password">
+                         <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username")%>">
+                        Mật khẩu mới&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password"><br><br>
+                        Nhập lại mật khẩu mới&nbsp;<input type="password" name="verifypassword">
                         <br><br>
-                        <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username1")%>">
                         <input type="submit" value="Lưu mật khẩu mới">
                     </form>
                 </div>

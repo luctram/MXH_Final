@@ -29,8 +29,8 @@
                 
                 <ul class="nav navbar-nav">
                     <li><a href="UserPage.jsp"><i class="glyphicon glyphicon-heart"></i> <%=UserDAO.getNameToShowHomePage(getServletContext().getAttribute("username").toString())%></a></li>
-                    <li><a href="Friends.jsp"><i class="glyphicon glyphicon-user"></i> Kết bạn</a></li>
-                    <li><a href="NewPost.jsp"><i class="fa fa-comments"></i> Bài đăng mới</a></li>
+                    <li><a href="Friends.jsp"><i class="glyphicon glyphicon-user"></i> Bạn bè</a></li>
+                    <li><a href="NewPost.jsp"><i class="fa fa-edit"></i> Bài đăng mới</a></li>
                     <li><a href="mess.jsp"><i class="fa fa-comments"></i> Tin nhắn</a></li>
                     <li><a href="Feedback.jsp"><i class="glyphicon glyphicon-send"></i> Phản hồi</a></li>
                     <li><a href="UserInfo.jsp"><i class="fa fa-cogs"></i> Cài đặt</a></li>

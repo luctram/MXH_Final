@@ -87,7 +87,7 @@ public class CmtPostDAO {
                 
                 list.add(cmt);
             }
-            cons.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
