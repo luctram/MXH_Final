@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.FileDAO;
 import DAO.UserDAO;
 import Model.User;
 import java.io.File;
@@ -44,7 +45,7 @@ public class Servlet_UploadFile extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-
+ PrintWriter out =response.getWriter();
        // checks if the request actually contains upload file
         if (!ServletFileUpload.isMultipartContent(request)) {
             // if not, we stop here
@@ -79,11 +80,10 @@ public class Servlet_UploadFile extends HttpServlet {
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
         }
-String username="";
+int userid=0;
 String link="";
         try {
             // parses the request's content to extract file data
-            System.out.println(request);
             @SuppressWarnings("unchecked")
 
             List<FileItem> formItems = upload.parseRequest(request);
@@ -94,35 +94,36 @@ String link="";
                     // processes only fields that are not form fields
                     if (!item.isFormField()) {
                         String fileName = new File(item.getName()).getName();
+                        int check = FileDAO.checkfile(fileName);
+                       
+                        if(check != 0){
+                             out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Chỉ đăng được ảnh!');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/ChangeAvatar.jsp' ;</script></html>");
+                            return;
+                        }
+                        else {
                         String filePath = uploadPath + File.separator + fileName;
                         File storeFile = new File(filePath);
 
                         item.write(storeFile);
-                        System.out.println("ANHHHH : " + UPLOAD_DIRECTORY + "/" + fileName);
                         link = UPLOAD_DIRECTORY + "/" + fileName;
-                        
+                        }
 
                     }
                     else{
                          String fieldName = item.getFieldName();
                          String fieldValue = item.getString();
-                         System.out.println("HH" + fieldValue);
-                         username=fieldValue;
+                         userid=Integer.parseInt(fieldValue);
                     }
                    
                 }
-                 User user = new User(username, link);
-                        user.setUserName(username);
-                        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + user.getUserName() + "        " + username);
-
-                        user.setAvatarLink(link);
-                        System.out.println("BBBBBBBBBBBBBBBBBBBBB" + user.getAvatarLink());
+                 User user = new User(userid, link);
                         UserDAO.editAvatar(user);
                         response.sendRedirect("http://localhost:8084/MXH_Final/Home.jsp");
                         return;
             }
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
             request.setAttribute("message",
                     "There was an error: " + ex.getMessage());
         }

@@ -38,7 +38,7 @@
 
                 <div id="dmkright">
                     <form action="./Servlet_ForgetPass" method="POST">
-                         <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username")%>">
+                         <input type="hidden" name="userid" value="<%=getServletContext().getAttribute("userid")%>">
                         Mật khẩu mới&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password"><br><br>
                         Nhập lại mật khẩu mới&nbsp;<input type="password" name="verifypassword">
                         <br><br>

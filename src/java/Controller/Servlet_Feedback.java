@@ -27,7 +27,8 @@ public class Servlet_Feedback extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-        String username = request.getParameter("username");
+        PrintWriter out = response.getWriter();
+        String userid = request.getParameter("userid");
         String contents = request.getParameter("contents");
 
         String error = "";
@@ -39,19 +40,20 @@ public class Servlet_Feedback extends HttpServlet {
         try {
             if (error.length() == 0) {
                 Feedback fb = new Feedback();
-                fb.setUserName(username);
+                fb.setUserId(Integer.parseInt(userid));
                 fb.setContents(contents);
                 fb.setDate(java.time.LocalDate.now().toString());
                 System.out.println(fb.getDate());
                 FeedbackDAO.newFeedBack(fb);
                 
-                PrintWriter out = response.getWriter();
-                out.println("M.F xin cảm ơn phản hồi của bạn <3");
-                response.sendRedirect("http://localhost:8084/MXH_Final/Feedback.jsp");
+                  out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('M.F xin cảm ơn phản hồi của bạn <3');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/Feedback.jsp' ;</script></html>");
                 return;
             } else {
-                System.out.println("<script>alert('Nhập thiếu thông tin');</script>");
-                response.sendRedirect("http://localhost:8084/MXH_Final/Feedback.jsp");
+                 out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Bạn chưa viết phản ảnh!!');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/Feedback.jsp' ;</script></html>");
 
             }
         } catch (Exception e) {
@@ -64,7 +66,7 @@ public class Servlet_Feedback extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-        String username = request.getParameter("username");
+        String userid = request.getParameter("userid");
         String contents = request.getParameter("contents");
 
         String error = "";
@@ -76,7 +78,7 @@ public class Servlet_Feedback extends HttpServlet {
         try {
             if (error.length() == 0) {
                 Feedback fb = new Feedback();
-                fb.setUserName(username);
+                fb.setUserId(Integer.parseInt(userid));
                 fb.setContents(contents);
                 fb.setDate(java.time.LocalDate.now().toString());
                 System.out.println(fb.getDate());

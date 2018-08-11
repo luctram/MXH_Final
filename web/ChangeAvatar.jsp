@@ -43,10 +43,11 @@
                 <form action="./Servlet_UploadFile" method="POST" enctype="multipart/form-data" id="formavatar">
                     <div class="col-lg-12 col-md-12">
 
-                        <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username")%>">
+                        <input type="hidden" name="userid" value="<%=getServletContext().getAttribute("userid")%>">
 
                         <input type="file" name="uploadFile" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple >
                         <label for="file"><i class="fa fa-image"></i> Thêm ảnh</label>
+
                         
                     </div>
                     <div class="col-lg-12 col-md-12">
@@ -79,6 +80,8 @@
         $("#file").change(function () {
             readURL(this);
         });
+        
+          
     </script>
 </body>
 </html>

@@ -10,26 +10,38 @@ package Model;
  * @author TramLuc
  */
 public class Feedback {
-    private String userName;
+    private int FBid;
+    private int userId;
     private String date;
     private String Contents;
 
-    public Feedback(String userName, String date, String Contents) {
-        this.userName = userName;
+    public Feedback(int userId, String date, String Contents) {
+        this.userId = userId;
         this.date = date;
         this.Contents = Contents;
     }
 
+   
     public Feedback() {
     }
 
-    public String getUserName() {
-        return userName;
+    public int getFBid() {
+        return FBid;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setFBid(int FBid) {
+        this.FBid = FBid;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+ 
 
     public String getDate() {
         return date;

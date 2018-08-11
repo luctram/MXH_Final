@@ -25,10 +25,10 @@ public class FeedbackDAO {
         Connection cons = DBConnect_MySQL.getConnection();
         try {
             System.out.println("DAO");
-            String sql = "INSERT INTO db_mxh.feedback (Username, Contents, Date) VALUE(?,?,?)";
+            String sql = "INSERT INTO db_mxh.feedback (UserId, Contents, Date) VALUE(?,?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
 
-            ps.setString(1, fb.getUserName());
+            ps.setInt(1, fb.getUserId());
             ps.setString(2, fb.getContents());
             ps.setString(3, fb.getDate());
             int temp = ps.executeUpdate();
@@ -50,7 +50,7 @@ public class FeedbackDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Feedback fb = new Feedback();
-                fb.setUserName(rs.getString("Username"));
+                fb.setUserId(rs.getInt("UserId"));
                 fb.setDate(rs.getString("Date"));
                 fb.setContents(rs.getString("Contents"));
                 feedback.add(fb);

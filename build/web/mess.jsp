@@ -24,13 +24,13 @@
         <jsp:include page="menu.jsp"></jsp:include>
         <jsp:include page = "footer.jsp"></jsp:include>
     </head>
-    <body>
+    <body onload = "ok();">
           <%
-        String username = getServletContext().getAttribute("username").toString();
-    String avatarlink = UserDAO.getAvatarToShowHomePage(username);
+        int userid = (int)getServletContext().getAttribute("userid");
+    String avatarlink = UserDAO.getAvatarToShowHomePage(userid);
     
     List<Friends> listFriend = new ArrayList<Friends>();
-            listFriend = FriendsDAO.getAllFriendByUsername(username);
+            listFriend = FriendsDAO.getAllFriendByUserId(userid);
     %>
               <div class="main_section">
             <div class="container">
@@ -57,8 +57,8 @@
                                  <%
                                 for(int i = 0; i< listFriend.size(); i++){
                                      String name, avatar;
-                                    name= UserDAO.getNameToShowHomePage(listFriend.get(i).getFriendName());
-                                    avatar = UserDAO.getAvatarToShowHomePage(listFriend.get(i).getFriendName());
+                                    name= UserDAO.getNameToShowHomePage(listFriend.get(i).getFriendId());
+                                    avatar = UserDAO.getAvatarToShowHomePage(listFriend.get(i).getFriendId());
                                 
                             %>
                                 <ul class="list-unstyled">
@@ -85,8 +85,8 @@
                         <div class="row">
                             <%
                                      String name, avatar;
-                                    name= UserDAO.getNameToShowHomePage("baocuong0501");
-                                    avatar = UserDAO.getAvatarToShowHomePage("baocuong0501");
+                                    name= UserDAO.getNameToShowHomePage(12);
+                                    avatar = UserDAO.getAvatarToShowHomePage(12);
                                 
                             %>
                             <div class="new_message_head">
@@ -96,132 +96,13 @@
                                    </div>
                             </div><!--new_message_head-->
 
+                            <input type="text" value="<%=userid%>" id="me">
+                            <input type="text" value="tramluc" id="myfriend">
                             <div class="chat_area">
                                 <ul class="list-unstyled">
-                                    <li class="left clearfix">
-                                        <span class="chat-img1 pull-left">
-                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>heyy Long time no see</p>
-                                            <div class="chat_time pull-right">09:40PM</div>
-                                        </div>
-                                    </li>
-                                    
-                                   
-                                    <li class="left clearfix admin_chat">
-                                        <span class="chat-img1 pull-right">
-                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>Hahaa yehh </p>
-                                            <div class="chat_time pull-left">09:41PM</div>
-                                        </div>
-                                    </li>
-                                    
-                                     <li class="left clearfix admin_chat">
-                                        <span class="chat-img1 pull-right">
-                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>i have been worked so now i'm busy :))</p>
-                                            <div class="chat_time pull-left">09:41PM</div>
-                                        </div>
-                                    </li>
-                                    
-                                     <li class="left clearfix admin_chat">
-                                        <span class="chat-img1 pull-right">
-                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>but tomorrow i'll off</p>
-                                            <div class="chat_time pull-left">09:42PM</div>
-                                        </div>
-                                    </li>
-                                        
-                                        
-                                    <li class="left clearfix">
-                                        <span class="chat-img1 pull-left">
-                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>Oh</p>
-                                            <div class="chat_time pull-right">09:45PM</div>
-                                        </div>
-                                    </li>
-                                    
-                                    <li class="left clearfix">
-                                        <span class="chat-img1 pull-left">
-                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>Would u wanna go coffee</p>
-                                            <div class="chat_time pull-right">09:45PM</div>
-                                        </div>
-                                    </li>
-                                    <li class="left clearfix">
-                                        <span class="chat-img1 pull-left">
-                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>Would u wanna go coffee</p>
-                                            <div class="chat_time pull-right">09:46PM</div>
-                                        </div>
-                                    </li>
-                                    
-                                   
-                                    <li class="left clearfix admin_chat">
-                                        <span class="chat-img1 pull-right">
-                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>I know a dog coffee shop </p>
-                                            <div class="chat_time pull-left">09:46PM</div>
-                                        </div>
-                                    </li>
-                                        
-                                       
-                                    <li class="left clearfix">
-                                        <span class="chat-img1 pull-left">
-                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>Great!!!!</p>
-                                            <div class="chat_time pull-right">09:40PM</div>
-                                        </div>
-                                    </li>
-                                    
-                                   
-                                    <li class="left clearfix admin_chat">
-                                        <span class="chat-img1 pull-right">
-                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-                                            <div class="chat_time pull-left">09:40PM</div>
-                                        </div>
-                                    </li>
-                               
-                                    <li class="left clearfix">
-                                        <span class="chat-img1 pull-left">
-                                            <img src="<%=avatar%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-                                            <div class="chat_time pull-right">09:40PM</div>
-                                        </div>
-                                    </li>
-                                    
-                                   
-                                    <li class="left clearfix admin_chat">
-                                        <span class="chat-img1 pull-right">
-                                            <img src="<%=avatarlink%>" alt="User Avatar" class="img-circle">
-                                        </span>
-                                        <div class="chat-body1 clearfix">
-                                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
-                                            <div class="chat_time pull-left">09:40PM</div>
-                                        </div>
-                                    </li>
+                                    <div id ="mess">
+                                        asdfdsafdsfafds
+                                    </div>
                                 </ul>
                             </div><!--chat_area-->
                             <div class="message_write">
@@ -239,11 +120,41 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
+
 
 
 </div> <!--/main-->
-
+<script type="text/javascript">
+    function ok(){
+//            $.ajax({
+//                type: 'POST', url: './Servlet_Mess', data: { "user1" : me , "user2" : myfen }, dataType:text, success: function(data){
+//                    alert("OK");
+//                    var result = data;
+//                       document.getElementById("mess").innerHTML = result;
+//                }
+//            , error: function(data) {
+//            alert('woops!');
+//            });
+//         var refInterval = window.setInterval('update()', 1000); // 30 seconds
+        setInterval(load(), 500);
+    }
+    function load(){
+        var oldscrollHeight = $("#mess").attr("scrollHeight") - 20;
+        $.post("Servlet_Mess",
+        {
+          user1: "tramluc",
+          user2: "baocuong0501"
+        },
+        function(data){
+            document.getElementById("mess").innerHTML = data;
+            var newscrollHeight = $("#mess").attr("scrollHeight") - 20; //Scroll height after the request
+				if(newscrollHeight > oldscrollHeight){
+					$("#mess").animate({ scrollTop: newscrollHeight }, 'normal'); //Autoscroll to bottom of div
+				}	
+        });
+    }
+            
+</script>
 </body>
 </html>

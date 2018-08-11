@@ -22,16 +22,14 @@ public class CmtPostDAO {
     final static Connection cons = DBConnect_MySQL.getConnection();
     
     //tao cmt moi 
-       public static boolean createUser(CommentPost cmt) throws SQLException {
+       public static boolean createCmt(CommentPost cmt) throws SQLException {
         try {
-            String sql = "INSERT INTO db_mxh.comment (SerialPost, UserCmtId, ContentsCmt, CmtDate) VALUE(?,?,?,?)";
+            String sql = "INSERT INTO db_mxh.comment (PostId, UserCmtId,ContentsCmt, CmtDate) VALUE(?,?,?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
-
-            ps.setInt(1, cmt.getSerialPost());
-            ps.setInt(2, cmt.getUserCmtId());
+            ps.setInt(1, cmt.getPostId());
+            ps.setInt(2, cmt.getUserId());
             ps.setString(3, cmt.getContentsCmt());
             ps.setString(4, cmt.getCmtDate());
-
             int temp = ps.executeUpdate();
             return temp == 1;
         } catch (Exception e) {
@@ -71,8 +69,8 @@ public class CmtPostDAO {
     }
         
         //Lay tat ca cmt trong 1 bai viet
-        public static ArrayList<CommentPost> getAllPostBySerialPost(int serialPost) {
-        String sql = "SELECT * FROM db_mxh.comment WHERE SerialPost LIKE '%"+serialPost+"%'";
+        public static ArrayList<CommentPost> getAllCmtByPost(int serialPost) {
+        String sql = "SELECT * FROM db_mxh.comment WHERE PostId LIKE '%"+serialPost+"%'";
         ArrayList<CommentPost> list = new ArrayList<>();
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
@@ -80,8 +78,8 @@ public class CmtPostDAO {
             while (rs.next()) {
                 CommentPost cmt = new CommentPost();
                 cmt.setCmtId(rs.getInt("CmtId"));
-                cmt.setSerialPost(rs.getInt("SerialPost"));
-                cmt.setUserCmtId(rs.getInt("UserCmtId"));
+                cmt.setPostId(rs.getInt("PostId"));
+                cmt.setUserId(rs.getInt("UserCmtId"));
                 cmt.setContentsCmt(rs.getString("ContentsCmt"));
                 cmt.setCmtDate(rs.getString("CmtDate"));
                 

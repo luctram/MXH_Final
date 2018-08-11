@@ -16,7 +16,6 @@ public class User {
     private String phone;
     private String password;
     private String name;
-    private String otherName;
     private String BDay;
     private String address;
     private String hometown;
@@ -31,33 +30,28 @@ public class User {
         this.name = name;
     }
 
-
-    public User(String userName, String email, String phone, String name, String otherName, String address, String hometown, String hobby) {
-        this.userName = userName;
+    public User(int userId, String email, String phone, String name, String BDay, String address, String hometown, String hobby) {
+        this.userId = userId;
         this.email = email;
         this.phone = phone;
         this.name = name;
-        this.otherName = otherName;
+        this.BDay = BDay;
         this.address = address;
         this.hometown = hometown;
         this.hobby = hobby;
     }
+    
 
 
-    public User(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
+
+    
+
+    public User(int userId, String password) {
+        this.userId = userId;
+        this.password = password; 
         this.avatarLink = password;
     }
-    
-    
-    public String getOtherName() {
-        return otherName;
-    }
 
-    public void setOtherName(String otherName) {
-        this.otherName = otherName;
-    }
 
     public String getBDay() {
         return BDay;

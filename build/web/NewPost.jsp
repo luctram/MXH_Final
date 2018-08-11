@@ -31,7 +31,7 @@
                     <div class="col-sm-12 form-group">
                             <label for="comments">
                                Tạo bài viết mới: </label>
-                             <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username")%>">
+                             <input type="hidden" name="userid" value="<%=getServletContext().getAttribute("userid")%>">
                            <textarea class="form-control" type="textarea" name="newpost" id="comments" placeholder="Bạn đang nghĩ gì vậy??" maxlength="6000" rows="7"></textarea>
                            <br>
                                <input type="file" name="uploadFile" id="file" class="inputfile" data-multiple-caption="{count} files selected" multiple >

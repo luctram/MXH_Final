@@ -11,10 +11,15 @@ package Model;
  */
 public class LikePost {
     private int likeId;
-    private int serialPost;
-    private int countLike;
+    private int postId;
+    private int userId;
 
     public LikePost() {
+    }
+
+    public LikePost(int postId, int userId) {
+        this.postId = postId;
+        this.userId = userId;
     }
 
     public int getLikeId() {
@@ -25,20 +30,22 @@ public class LikePost {
         this.likeId = likeId;
     }
 
-    public int getSerialPost() {
-        return serialPost;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setSerialPost(int serialPost) {
-        this.serialPost = serialPost;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
-    public int getCountLike() {
-        return countLike;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setCountLike(int countLike) {
-        this.countLike = countLike;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
+
+
     
 }

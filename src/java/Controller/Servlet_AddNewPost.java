@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import DAO.FileDAO;
 import DAO.UserPostDAO;
 import Model.UserPost;
 import java.io.File;
@@ -42,7 +43,7 @@ public class Servlet_AddNewPost extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         String error = "";
-        
+        PrintWriter out = response.getWriter();
          //checks if the request actually contains upload file
         if (!ServletFileUpload.isMultipartContent(request)) {
             // if not, we stop here
@@ -77,7 +78,7 @@ public class Servlet_AddNewPost extends HttpServlet {
         if (!uploadDir.exists()) {
             uploadDir.mkdir();
         }
-String username="";
+int userid=0;
 String imgvideolink="";
 String contentspost ="";
 String[] fieldValue = new String[2];
@@ -103,12 +104,19 @@ String[] fieldValue = new String[2];
                     }
                     else {
                          String fileName = new File(item.getName()).getName();
+                          int check = FileDAO.checkfile(fileName);
+                          if(check == 0 || check == 1 ){
                         String filePath = uploadPath + File.separator + fileName;
                         File storeFile = new File(filePath);
 
                         item.write(storeFile);
-                        System.out.println("ANHHHH : " + UPLOAD_DIRECTORY + "/" + fileName);
-                        imgvideolink =  UPLOAD_DIRECTORY + "/" + fileName;
+                        imgvideolink =  UPLOAD_DIRECTORY + "/" + fileName;}
+                          else {
+                             out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Chỉ đăng được ảnh hoặc video');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/NewPost.jsp' ;</script></html>");
+                            return;
+                          }
                     }
                     }
             }
@@ -118,32 +126,24 @@ String[] fieldValue = new String[2];
             request.setAttribute("message",
                     "There was an error: " + ex.getMessage());
         }
-        username=fieldValue[0];
+        userid=Integer.parseInt(fieldValue[0]);
        contentspost=fieldValue[1];
-        System.out.println("DAY: "+ username + " " + contentspost);
-        if (contentspost.equals("")) {
-            error = "Chưa nhập tên đăng nhập";
-            request.setAttribute("error", error);
-        }
+       
             try {
-                if (error.length() == 0) {
+             
                        UserPost uPost  = new UserPost();
-                           uPost.setUserName(username);
+                           uPost.setUserId(userid);
                            uPost.setContent(contentspost);
                            uPost.setImgVideoLink(imgvideolink);
                            uPost.setDate(java.time.LocalDate.now().toString());
                            uPost.setCountLike(0);
                            UserPostDAO.createPost(uPost);
-//                              PrintWriter out = response.getWriter();
-//                             out.println("THANH CONG");
-                             response.sendRedirect("http://localhost:8084/MXH_Final/UserPage.jsp");
+                             
+                             out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Đăng bài thành công!');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/UserPage.jsp' ;</script></html>");           
                              return;
-                        }
-                        else{
-                            System.out.println("<script>alert('Bài đăng trống!');</script>");
-                            response.sendRedirect("http://localhost:8084/MXH_Final/NewPost.jsp");
-                            return;
-                        }
+                       
             }  
              catch (Exception e) {
             }

@@ -11,10 +11,19 @@ package Model;
  */
 public class CommentPost {
     private int cmtId;
-    private int serialPost;
-    private int userCmtId;
+    private int postId;
+    private int userId;
     private String contentsCmt;
     private String cmtDate;
+
+    public CommentPost(int postId, int userId, String contentsCmt, String cmtDate) {
+        this.postId = postId;
+        this.userId = userId;
+        this.contentsCmt = contentsCmt;
+        this.cmtDate = cmtDate;
+    }
+
+    
 
     public CommentPost() {
     }
@@ -27,20 +36,26 @@ public class CommentPost {
         this.cmtId = cmtId;
     }
 
-    public int getSerialPost() {
-        return serialPost;
+    public int getPostId() {
+        return postId;
     }
 
-    public void setSerialPost(int serialPost) {
-        this.serialPost = serialPost;
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
-    public int getUserCmtId() {
-        return userCmtId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserCmtId(int userCmtId) {
-        this.userCmtId = userCmtId;
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+
+    public CommentPost(int cmtId, String contentsCmt) {
+        this.cmtId = cmtId;
+        this.contentsCmt = contentsCmt;
     }
 
     public String getContentsCmt() {

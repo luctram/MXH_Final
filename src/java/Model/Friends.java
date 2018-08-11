@@ -10,31 +10,64 @@ package Model;
  * @author TramLuc
  */
 public class Friends {
-    private String Username;
-    private String FriendName;
+    private int friendListId;
+    private int userId;
+    private int friendId;
+    private String Date;
+    private String Status;
 
     public Friends() {
     }
 
-    public String getUsername() {
-        return Username;
+    public Friends(int userId, int friendId, String Date, String Status) {
+        this.userId = userId;
+        this.friendId = friendId;
+        this.Date = Date;
+        this.Status = Status;
+    }
+ 
+
+    public String getDate() {
+        return Date;
     }
 
-    public void setUsername(String Username) {
-        this.Username = Username;
+    public void setDate(String Date) {
+        this.Date = Date;
     }
 
-    public String getFriendName() {
-        return FriendName;
+    public String getStatus() {
+        return Status;
     }
 
-    public void setFriendName(String FriendName) {
-        this.FriendName = FriendName;
+    public void setStatus(String Status) {
+        this.Status = Status;
     }
 
-    public String getUserName() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int getFriendListId() {
+        return friendListId;
     }
-    
+
+    public void setFriendListId(int friendListId) {
+        this.friendListId = friendListId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getFriendId() {
+        return friendId;
+    }
+
+    public void setFriendId(int friendId) {
+        this.friendId = friendId;
+    }
+
+
+
     
 }

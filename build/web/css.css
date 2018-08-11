@@ -440,6 +440,7 @@ h2{
     font-size: 1.35em;
 }
 
+
 .FriendName a{
     color: black;
     
@@ -472,6 +473,8 @@ h2{
                 width: 1000px;
                 margin-left: 100px;
             }
+            
+            
 /*Feedback*/
 #feedback{
     padding-left:270px;
@@ -515,5 +518,3 @@ h2{
     background-color: #b3b3b3;
     color: white;
 }
-
-/*Home*/

@@ -23,6 +23,10 @@
   
 </head>
 <body>
+    <%
+            int userid = (int)getServletContext().getAttribute("userid");
+                  
+        %>
     <div class="container">
         <h2>THÊM BẠN MỚI</h2>
         <br>
@@ -52,8 +56,12 @@
                         <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="" id="phonefriend"></span>
 
                         <span class="glyphicon glyphicon-envelope text-muted c-info" data-toggle="tooltip" title="" id="emailfriend"></span>
-
-                        <span class="fa fa-user-plus text-muted c-info" data-toggle="tooltip" title="Gửi lời mời kết bạn"></span>
+                        
+                        <form action="./Servlet_RequestNewFriend" method="POST" id="addfriend">
+                             <input type="hidden" name="userid" value="<%=userid%>">
+                                <input type="hidden" name="friendid" value="" id="friendname">
+                            <input type="submit" value="Gửi lời mời kết bạn" id="request">
+                        </form>
                     </div>
                 </div>
                 <div class="clearfix"></div>
@@ -70,7 +78,7 @@
                         var result = data;
                         //$('#result').attr("value",result);
                         var b= result.split("-");
-                         
+                         $('#friendname').attr("value",b[0]);
                          $('#img').attr("src",b[5]);
                          $('#addressfriend').attr("title",b[4]);
                           $('#phonefriend').attr("title",b[3]);
@@ -80,6 +88,7 @@
                 });
                 return false;
             });
+            
         </script>
 </body>
 </html>

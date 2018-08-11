@@ -24,10 +24,10 @@ public class UserPostDAO {
 //Bai dang moi
     public static boolean createPost(UserPost uPost) throws SQLException {
         try {
-            String sql = "INSERT INTO db_mxh.userpost (Username, DatePost, Contents, Link, CountLike) VALUE(?,?,?,?,?)";
+            String sql = "INSERT INTO db_mxh.userpost (UserId, DatePost, Contents, Link, CountLike) VALUE(?,?,?,?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
 
-            ps.setString(1, uPost.getUserName());
+            ps.setInt(1, uPost.getUserId());
             ps.setString(2, uPost.getDate());
             ps.setString(3, uPost.getContent());
             ps.setString(4, uPost.getImgVideoLink());
@@ -43,12 +43,12 @@ public class UserPostDAO {
 //Sua bai dang
     public static boolean editPost(UserPost uPost) throws SQLException {
     try {
-         String sql = "UPDATE db_mxh.userpost SET Contents=?, Link= ? WHERE Username= ?";
+         String sql = "UPDATE db_mxh.userpost SET Contents=?, Link= ? WHERE PostId= ?";
          PreparedStatement ps = cons.prepareCall(sql);
          
          ps.setString(1,uPost.getContent());
          ps.setString(2,uPost.getImgVideoLink());
-         ps.setString(3,uPost.getUserName());
+         ps.setInt(3,uPost.getPostId());
          int temp = ps.executeUpdate();
          return temp == 1 ;
     } catch (Exception e) {
@@ -60,11 +60,11 @@ public class UserPostDAO {
     //Sua like
     public static boolean editCountLike(UserPost uPost) throws SQLException {
     try {
-         String sql = "UPDATE db_mxh.userpost SET CountLike=? WHERE Username= ?";
+         String sql = "UPDATE db_mxh.userpost SET CountLike=? WHERE PostId= ?";
          PreparedStatement ps = cons.prepareCall(sql);
          
-         ps.setString(1,uPost.getContent());
-         ps.setInt(2,uPost.getCountLike());
+         ps.setInt(1,uPost.getCountLike());
+         ps.setInt(2,uPost.getPostId());
          int temp = ps.executeUpdate();
          return temp == 1 ;
     } catch (Exception e) {
@@ -74,12 +74,13 @@ public class UserPostDAO {
 }
 
     //Xoa bai dang
-     public static boolean deletePost(String Username) throws SQLException {
+     public static boolean deletePost(int idpost) throws SQLException {
     
        try {
-        String sql = "DELETE db_mxh.userpost WHERE Username = ?";
+        String sql = "DELETE FROM db_mxh.userpost WHERE PostId = '" + idpost +"'";
         PreparedStatement ps = cons.prepareCall(sql);
-        ps.setString(1,Username);
+           System.out.println("SQL: "+sql);
+     
         int temp = ps.executeUpdate();
             return true;
     } catch (Exception e) {
@@ -89,15 +90,15 @@ public class UserPostDAO {
     }
      
      //Lay tat ca bai viet
-      public static ArrayList<UserPost> getAllPostByUsername(String Username) {
-        String sql = "SELECT * FROM db_mxh.userpost WHERE Username LIKE '%"+Username+"%'";
+      public static ArrayList<UserPost> getAllPostByUserid(int Userid) {
+        String sql = "SELECT * FROM db_mxh.userpost WHERE UserId LIKE '%"+Userid+"%'";
         ArrayList<UserPost> list = new ArrayList<UserPost>();
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 UserPost uPost = new UserPost();
-                uPost.setUserName(rs.getString("Username"));
+                uPost.setUserId(rs.getInt("UserId"));
                 uPost.setPostId(rs.getInt("PostId"));
                 uPost.setDate(rs.getString("DatePost"));
                 uPost.setContent(rs.getString("Contents"));
@@ -110,5 +111,29 @@ public class UserPostDAO {
             e.printStackTrace();
         }
         return list;
+    }
+      
+      //Lay 1 bai viet
+      public static UserPost get1Post(int postid) {
+        String sql = "SELECT * FROM db_mxh.userpost WHERE PostId LIKE '%"+postid+"%'";
+                        UserPost uPost = new UserPost();
+        try {
+            PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+
+                uPost.setUserId(rs.getInt("UserId"));
+                uPost.setPostId(rs.getInt("PostId"));
+                uPost.setDate(rs.getString("DatePost"));
+                uPost.setContent(rs.getString("Contents"));
+                uPost.setImgVideoLink(rs.getString("Link"));
+                uPost.setCountLike(rs.getInt("CountLike"));
+           
+            }
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return uPost;
     }
 }

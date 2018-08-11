@@ -4,6 +4,9 @@
     Author     : TramLuc
 --%>
 
+<%@page import="DAO.CmtPostDAO"%>
+<%@page import="Model.CommentPost"%>
+<%@page import="DAO.FileDAO"%>
 <%@page import="DAO.UserPostDAO"%>
 <%@page import="Model.UserPost"%>
 <%@page import="DAO.FriendsDAO"%>
@@ -31,11 +34,11 @@
 </head>
 <body>
     <%
-        String username = getServletContext().getAttribute("username").toString();
-    String avatarlink = UserDAO.getAvatarToShowHomePage(username);
-    
+        int userid = (int)getServletContext().getAttribute("userid");
+    String avatarlink = UserDAO.getAvatarToShowHomePage(userid);
+    String username = UserDAO.getNameToShowHomePage(userid);
     List<Friends> listFriend = new ArrayList<Friends>();
-            listFriend = FriendsDAO.getAllFriendByUsername(username);
+            listFriend = FriendsDAO.getAllFriendByUserId(userid);
     %>
     <div class="main">
         <div class="container">
@@ -43,7 +46,7 @@
                 <div class="col-md-2 catogory">
                     <div class="row">
                         <a href="UserPage.jsp" class="btn btn-default btn-xs"><img src="<%=avatarlink%>" alt="Alternate Text" class="img-responsive" width="190px" height="180px" />
-                            <br><%=UserDAO.getNameToShowHomePage(getServletContext().getAttribute("username").toString())%></a>
+                            <br><%=username%></a>
                     </div>
                     <hr>
                     <p>
@@ -57,15 +60,14 @@
                         List<UserPost> upost = new ArrayList<UserPost>();
                         
                         for(int i=0; i < listFriend.size(); i++){
-                            upost = UserPostDAO.getAllPostByUsername(listFriend.get(i).getFriendName());
+                            upost = UserPostDAO.getAllPostByUserid(listFriend.get(i).getFriendId());
                          
                             String name, avatar;
-                            name= UserDAO.getNameToShowHomePage(listFriend.get(i).getFriendName());
-                            avatar = UserDAO.getAvatarToShowHomePage(listFriend.get(i).getFriendName());
+                            name= UserDAO.getNameToShowHomePage(listFriend.get(i).getFriendId());
+                            avatar = UserDAO.getAvatarToShowHomePage(listFriend.get(i).getFriendId());
                             for(int j=0; j< upost.size(); j++){
                                 
-                                %>
-                    <div>
+%><div>
                     <div class="panel-heading">
                         <a href="#"><img src="<%=avatar%>" class="img-circle" width="45px" height="43px">&nbsp;&nbsp;&nbsp;    
                             <%=name%></a>
@@ -77,7 +79,20 @@
 
                     <div class="panel-body">
                         <div class="PostContents">
-                            <%=upost.get(j).getContent()%>
+                            <p><%=upost.get(j).getContent()%></p>
+                           <%
+                               if(!upost.get(j).getImgVideoLink().equals(" ")){                           
+                                    int check = FileDAO.checkfile(upost.get(j).getImgVideoLink());
+                                    if (check == 0) {
+                              
+                           %>
+                            <img src="<%=upost.get(j).getImgVideoLink()%>" width="300px" height="150px" >
+                            <%} else if (check == 1) {%>
+                            <video width="320" height="240" controls>
+                                <source src="<%=upost.get(j).getImgVideoLink()%>" type="video/mp4">
+                            </video>
+                            <%}}%>
+
                         </div>
                         <div class="LikeButton">
                             <input type="button" value="Thích">
@@ -90,17 +105,17 @@
                                 <ul class="nav nav-tabs ">
 
                                     <li class="active">
-                                        <a href="#tab_default_1_1" data-toggle="tab">
+                                        <a href="#tab_default_1_<%=upost.get(j).getPostId()%>" data-toggle="tab">
                                             Viết bình luận</a>
                                     </li>
                                     <li>
-                                        <a href="#tab_default_2_1" data-toggle="tab">
+                                        <a href="#tab_default_2_<%=upost.get(j).getPostId()%>" data-toggle="tab">
                                             Xem bình luận</a>
                                     </li>
                                 </ul> <div class="tab-content">
-                                    <div class="tab-pane active" id="tab_default_1_1">
+                                    <div class="tab-pane active" id="tab_default_1_<%=upost.get(j).getPostId()%>">
                                         <div class="CmtAvatar">
-                                            <img src="Avatar/tmp362622951964540930.jpg" class="img-circle" width="30px" height="30px">
+                                            <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px" height="30px">
 
                                         </div>
                                         <div class="Comment">
@@ -108,57 +123,41 @@
                                                 <a href="">Trâm Lục</a>
                                             </div>
                                             <div id="WriteContents">
-                                                <form>
-                                                    <input type="text" placeholder="Viết bình luận">
+                                                <form action="./Servlet_AddNewCommentHome" method="POST">
+                                                    <input type="hidden" name="postid" value="<%=upost.get(j).getPostId()%>">
+                                                    <input type="hidden" name="usercmt" value="<%=username%>">
+                                                    <input type="text" placeholder="Viết bình luận" name="comment">
                                                 </form>
 
                                             </div>
                                         </div>
 
+
                                     </div>
-                                    <div class="tab-pane" id="tab_default_2_1">
+                                    <div class="tab-pane" id="tab_default_2_<%=upost.get(j).getPostId()%>">
+                                        <%
+                                            List<CommentPost> cmtlist = new ArrayList<CommentPost>();
+                                            cmtlist = CmtPostDAO.getAllCmtByPost(upost.get(j).getPostId());
+                                            for(int k = 0; k < cmtlist.size(); k++){
+                                                User u = new User();
+                                                u= UserDAO.getInfoByUserId(cmtlist.get(k).getCmtId());
+                                        %>
+                                        <br>
                                         <div> <div class="CmtAvatar">
-                                                <img src="Avatar/tmp362622951964540930.jpg" class="img-circle" width="30px">
+                                                <img src="<%=u.getAvatarLink()%>" class="img-circle" width="30px">
 
                                             </div>
                                             <div class="Comment">
                                                 <div id="Usenamepost">
-                                                    <a href="">Trâm Lục</a>
+                                                    <a href=""><%=u.getName()%></a>
                                                 </div>
                                                 <div id="CmtContents">
-                                                    sao dị ba :))
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br><br>
-                                        <div><div class="CmtAvatar">
-                                                <img src="Avatar/baocuong0501.png" class="img-circle" width="30px">
-
-                                            </div>
-                                            <div class="Comment">
-                                                <div id="Usenamepost">
-                                                    <a href=""> Bảo Cường</a>
-                                                </div>
-                                                <div id="CmtContents">
-                                                    hiuhiu :((
+                                                    <%=cmtlist.get(k).getContentsCmt()%>
                                                 </div>
                                             </div>
                                         </div>
                                         <br>
-                                        <br>
-                                        <div><div class="CmtAvatar">
-                                                <img src="Avatar/tmp362622951964540930.jpg" class="img-circle" width="30px">
-
-                                            </div>
-                                            <div class="Comment">
-                                                <div id="Usenamepost">
-                                                    <a href=""> Trâm lục</a>
-                                                </div>
-                                                <div id="CmtContents">
-                                                    kể nghe dới =))
-                                                </div>
-                                            </div>
-                                        </div><br>
+                                     <%}%>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +166,7 @@
                 </div>
                     <br><%
                             }
-                        }
+                            }
                     %>
                 </div>
 
@@ -178,10 +177,14 @@
                          <%
                               for(int i = 0; i< listFriend.size(); i++){
                                 User user= new User();
-                                user = FriendsDAO.searchUser(listFriend.get(i).getFriendName());
+                                user =UserDAO.getInfoByUserId(listFriend.get(i).getFriendId());
+                                String friend = user.getUserName();
+                                HttpSession sess = request.getSession(); 
+                            sess.setAttribute("username123", friend);
+                            System.out.println("C" + friend);
                          %>
                             <li class="left clearfix">
-                                <a href=""><span class="chat-img pull-left">
+                                <a href="UserPageFriend.jsp"><span class="chat-img pull-left">
                                     <img src="<%=user.getAvatarLink()%>" class="img-circle">
                                 </span>
                                 <div class="chat-body clearfix">

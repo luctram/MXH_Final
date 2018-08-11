@@ -4,6 +4,9 @@
     Author     : TramLuc
 --%>
 
+<%@page import="DAO.CmtPostDAO"%>
+<%@page import="Model.CommentPost"%>
+<%@page import="DAO.FileDAO"%>
 <%@page import="DAO.UserPostDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -29,20 +32,20 @@
         <body>
         <%
             User user = new User();
-            user.setUserName(getServletContext().getAttribute("username").toString());
-            user = UserDAO.getInfoByUsername(user.getUserName());
+             int userid = (int)getServletContext().getAttribute("userid");
+             user.setUserId(userid);
+            user = UserDAO.getInfoByUserId(user.getUserId());
             List<UserPost> Listpost = new ArrayList<UserPost>();
-            Listpost = UserPostDAO.getAllPostByUsername(user.getUserName());
+            Listpost = UserPostDAO.getAllPostByUserid(user.getUserId());
         %>
+        
         <div class="container-fluid">
             <div class="row">
                 <div class="fb-profile">
                     <img align="left" class="profile-img thumbnail" src="<%=user.getAvatarLink()%>" alt="Profile image example" height="250px" width="10px"/>
                     <div class="profile-name">
                         <h1><%=user.getName()%>
-                            <% if (!user.getOtherName().equals(" ")) {// Kiem tra user có dùng othername ko
-%>&nbsp;(<%=user.getOtherName()%>)<%}%>
-
+                            
                         </h1>
                     </div>
                 </div>
@@ -51,17 +54,36 @@
         <div class="container">
             <div class="col-sm-8">
                 <%for (int i = 0; i < Listpost.size(); i++) {
-                        String avatar = UserDAO.getAvatarToShowHomePage(user.getUserName());
-                        String name = UserDAO.getNameToShowHomePage(user.getUserName());
+                   
+                        String avatar = UserDAO.getAvatarToShowHomePage(user.getUserId());
+                        String name = UserDAO.getNameToShowHomePage(user.getUserId());
                 %>
 
                 <div>
                     <div class="panel-heading">
                         <a href="#"><img src="<%=avatar%>" class="img-circle" width="45px" height="43px">&nbsp;&nbsp;&nbsp;    
                             <%=name%></a>
-                        <div id="datepost"><%=Listpost.get(i).getDate()%>
-                            <br><br>
+                        <div id="datepost">
+                              <div class="dropdown">
+                                <span>...</span>
+                                <div class="dropdown-content">
+                                    <form action="EditPost.jsp">
+                                            <input  type = "hidden" name="idpost1" value="<%=Listpost.get(i).getPostId()%>">
+                                            <input type="submit" value="Sửa bài viết">
+                                    </form>
+                                    
+                                    
+                                        <form action="./Servlet_DeletePost" method="POST">
+                                        <input  type = "hidden" name="idpost" value="<%=Listpost.get(i).getPostId()%>" >
+                                  <input type="submit" value="Xóa bài viết">
+                                        </form>
+                                </div>
+                                </div>
+                            <br>
+                            <%=Listpost.get(i).getDate()%>
+                            <br>
                             <p>2&nbsp;bình luận&nbsp;&nbsp;&nbsp;<%=Listpost.get(i).getCountLike()%>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i></p>
+                         
                         </div>
                     </div>   
 
@@ -69,11 +91,18 @@
                         <div class="PostContents">
                             <p><%=Listpost.get(i).getContent()%></p>
                             <%
-                                if(!Listpost.get(i).getImgVideoLink().equals(" ")){
+                                if (!Listpost.get(i).getImgVideoLink().equals(" ")) {
+                                    int check = FileDAO.checkfile(Listpost.get(i).getImgVideoLink());
+                                    if (check == 0) {
                             %>
                             <img src="<%=Listpost.get(i).getImgVideoLink()%>" width="300px" height="150px" >
-                            <%}%>
-                            
+                            <%} else if (check == 1) {%>
+                            <video width="320" height="240" controls>
+                                <source src="<%=Listpost.get(i).getImgVideoLink()%>" type="video/mp4">
+                            </video>
+                            <%}
+                                    }%>
+
                         </div>
                         <div class="LikeButton">
                             <input type="button" value="Thích">
@@ -104,8 +133,10 @@
                                                 <a href="">Trâm Lục</a>
                                             </div>
                                             <div id="WriteContents">
-                                                <form>
-                                                    <input type="text" placeholder="Viết bình luận">
+                                                <form action="./Servlet_AddNewComment" method="POST">
+                                                    <input type="hidden" name="postid" value="<%=Listpost.get(i).getPostId()%>">
+                                                    <input type="hidden" name="usercmt" value="<%=user.getUserName()%>">
+                                                    <input type="text" placeholder="Viết bình luận" name="comment">
                                                 </form>
 
                                             </div>
@@ -114,34 +145,28 @@
 
                                     </div>
                                     <div class="tab-pane" id="tab_default_2_<%=Listpost.get(i).getPostId()%>">
+                                        <%
+                                            List<CommentPost> cmtlist = new ArrayList<CommentPost>();
+                                            cmtlist = CmtPostDAO.getAllCmtByPost(Listpost.get(i).getPostId());
+                                            for(int k = 0; k < cmtlist.size(); k++){
+                                                User u = new User();
+                                                u= UserDAO.getInfoByUserId(cmtlist.get(k).getCmtId());
+                                        %><br>
                                         <div> <div class="CmtAvatar">
-                                                <img src="Avatar/logo.png" class="img-circle" width="30px">
-                                           
-                                            </div>
-                                            <div class="Comment">
-                                                <div id="Usenamepost">
-                                                    <a href="">Hana</a>
-                                                </div>
-                                                <div id="CmtContents">
-                                                   Hahaaaaaa :))
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br><br>
-                                        <div><div class="CmtAvatar">
-                                                <img src="Avatar/baocuong0501.png" class="img-circle" width="30px">
+                                                <img src="<%=u.getAvatarLink()%>" class="img-circle" width="30px">
 
                                             </div>
                                             <div class="Comment">
                                                 <div id="Usenamepost">
-                                                    <a href=""> Bảo Cường</a>
+                                                    <a href=""><%=u.getName()%></a>
                                                 </div>
                                                 <div id="CmtContents">
-                                                    Sao dui dọ kể nghe =))
+                                                    <%=cmtlist.get(k).getContentsCmt()%>
                                                 </div>
                                             </div>
                                         </div>
                                         <br>
+                                        <%}%>
                                     </div>
                                 </div>
                             </div>

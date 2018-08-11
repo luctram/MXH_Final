@@ -4,6 +4,7 @@
     Author     : TramLuc
 --%>
 
+<%@page import="DAO.UserDAO"%>
 <%@page import="Model.Friends"%>
 <%@page import="DAO.FriendsDAO"%>
 <%@page import="Model.User"%>
@@ -27,23 +28,27 @@
     </head>
     <body>
         <%
-            String username = getServletContext().getAttribute("username").toString();
+            int userid = (int)getServletContext().getAttribute("userid");
             List<Friends> listFriend = new ArrayList<Friends>();
-            listFriend = FriendsDAO.getAllFriendByUsername(username);
+            listFriend = FriendsDAO.getAllFriendByUserId(userid);
                   
         %>
         <div class="container">
                 <h2>Danh sách bạn bè</h2>
                 <div class="AddFriend">
+                    <a href="RequestFriends.jsp" title="Lời mời kết bạn"><i class="fa fa-user-plus fa-2x"></i></a>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="NewFriend.jsp" title="Thêm bạn"><i class="fa fa-plus fa-2x"></i></a>
                 </div>
                 <br>
-            
+               
             <div class="row">
  <%
                             for(int i = 0; i< listFriend.size(); i++){
                                 User user= new User();
-                                user = FriendsDAO.searchUser(listFriend.get(i).getFriendName());%>
+                                user = UserDAO.getInfoByUserId(userid);
+                                
+ %>
                 <div class="listfriend">
                     <div class="col-sm-12">
                        
@@ -55,11 +60,14 @@
                             <h4><a href="#"><%=user.getName()%></a></h4>
                         </div>
                         <div class="col-sm-2">
+                            <form action="./Servlet_DeleteFriend" method="POST">
+                                <input type="hidden" name="userid" value="<%=userid%>">
+                                <input type="hidden" name="friendid" value="<%=listFriend.get(i).getFriendId()%>">
                             <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="<%=user.getAddress()%>"></span>
                             <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="<%=user.getPhone()%>"></span>
                             <span class="glyphicon glyphicon-envelope text-muted c-info" data-toggle="tooltip" title="<%=user.getEmail()%>"></span>
                            <span class="glyphicon glyphicon-user text-muted c-info" data-toggle="tooltip" title="Bạn bè"></span>
-                           <form>
+                           
                                <input type="submit" value="Hủy bạn bè">
                            </form>
                         </div> 

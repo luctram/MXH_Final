@@ -26,7 +26,7 @@ public class UserDAO {
    public static boolean createUser(User user) throws SQLException {
     Connection cons = DBConnect_MySQL.getConnection();
     try {
-         String sql = "INSERT INTO db_mxh.user (Username, Name, Password, Phone, Email, Othername, BDay, Address, Hometown, Hobby, Avatar) VALUE(?,?,?,?,?,?,?,?,?,?,?)";
+         String sql = "INSERT INTO db_mxh.user (Username, Name, Password, Phone, Email,  BDay, Address, Hometown, Hobby, Avatar) VALUE(?,?,?,?,?,?,?,?,?,?)";
     
          PreparedStatement ps = cons.prepareStatement(sql);
   
@@ -35,12 +35,11 @@ public class UserDAO {
          ps.setString(3,user.getPassword());
          ps.setString(4, user.getPhone());
          ps.setString(5, user.getEmail());
-         ps.setString(6,user.getOtherName());
-         ps.setString(7,user.getBDay());
-         ps.setString(8,user.getAddress());
-         ps.setString(9,user.getHometown());
-         ps.setString(10,user.getHobby());
-         ps.setString(11,user.getAvatarLink());
+         ps.setString(6,user.getBDay());
+         ps.setString(7,user.getAddress());
+         ps.setString(8,user.getHometown());
+         ps.setString(9,user.getHobby());
+         ps.setString(10,user.getAvatarLink());
          int temp = ps.executeUpdate();
        
          return temp == 1 ;
@@ -48,6 +47,25 @@ public class UserDAO {
          return false;
     }
 }
+   
+   //get Id from username
+   public static int getId(String username){
+       Connection cons = DBConnect_MySQL.getConnection();
+       int id = 0;
+         String sql = "SELECT UserId FROM db_mxh.user where Username='" + username+"'";
+         try{
+         PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery();
+         while(rs.next()){
+              id = rs.getInt("UserId");
+         }
+        }catch(SQLException e){
+    
+            e.printStackTrace();
+        }
+       return id;
+   }
+   
    //Lấy Username,phone, email có ton tai chua?
    public static List<User> GetUsernameAndPhoneAndEmailToCheck() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
     Connection cons = DBConnect_MySQL.getConnection();
@@ -71,11 +89,11 @@ public class UserDAO {
   return user;
 }
 // Lay thong tin hien thi trang chu sau khi dang nhap
-   public static String getNameToShowHomePage(String username) throws SQLException{
+   public static String getNameToShowHomePage(int userid) throws SQLException{
        String name = null;;
         Connection cons = DBConnect_MySQL.getConnection();
         try{
-         String sql = "SELECT Name FROM db_mxh.user WHERE Username='" + username +"'";
+         String sql = "SELECT Name FROM db_mxh.user WHERE UserId='" + userid +"'";
          PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
          ResultSet rs = ps.executeQuery();
          while(rs.next()){
@@ -89,11 +107,11 @@ public class UserDAO {
    }
    
    // Lay thong tin hien thi trang chu sau khi dang nhap
-   public static String getAvatarToShowHomePage(String username) throws SQLException{
+   public static String getAvatarToShowHomePage(int userid) throws SQLException{
        String link = null;;
         Connection cons = DBConnect_MySQL.getConnection();
         try{
-         String sql = "SELECT Avatar FROM db_mxh.user WHERE Username='" + username +"'";
+         String sql = "SELECT Avatar FROM db_mxh.user WHERE UserId='" + userid +"'";
          PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
          ResultSet rs = ps.executeQuery();
          while(rs.next()){
@@ -138,9 +156,9 @@ public class UserDAO {
     }
     
     //Kiem tra phone + email để được reset pass
-    public static String getPhoneAndEmailByUsernameToCheck(String username){
+    public static String getPhoneAndEmailByUseridToCheck(int userid){
         Connection cons = DBConnect_MySQL.getConnection();
-        String sql= "SELECT Phone, Email FROM db_mxh.user WHERE Username='"+ username +"'";
+        String sql= "SELECT Phone, Email FROM db_mxh.user WHERE UserId='"+ userid +"'";
         String phone = null, email=null;
         try{
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
@@ -160,11 +178,11 @@ public class UserDAO {
     public static boolean ChangePass(User u) throws SQLException{
         Connection cons = DBConnect_MySQL.getConnection();
          try {
-         String sql = "UPDATE db_mxh.user SET Password=? WHERE Username = ?";
+         String sql = "UPDATE db_mxh.user SET Password=? WHERE UserId = ?";
          PreparedStatement ps = cons.prepareCall(sql);
              
          ps.setString(1, u.getPassword());
-         ps.setString(2, u.getUserName());
+         ps.setInt(2, u.getUserId());
 
          int temp = ps.executeUpdate();
          System.out.println(sql);
@@ -175,16 +193,15 @@ public class UserDAO {
          
     }
     //Lay tat ca thong tin cua 1 user
-    public static User getInfoByUsername(String username){
+    public static User getInfoByUserId(int userid){
         Connection cons = DBConnect_MySQL.getConnection();
          User u = new User();
         try{
-            String sql="SELECT * FROM db_mxh.user WHERE Username = '" +username + "'";
+            String sql="SELECT * FROM db_mxh.user WHERE UserId = '" +userid + "'";
              PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 u.setUserName(rs.getString("Username"));
-                u.setOtherName(rs.getString("Othername"));
                 u.setBDay(rs.getString("BDay"));
                 u.setAddress(rs.getString("Address"));
                 u.setHometown(rs.getString("Hometown"));
@@ -204,18 +221,17 @@ public class UserDAO {
     public static boolean editUser(User user) throws SQLException {
         Connection cons = DBConnect_MySQL.getConnection();
     try {
-         String sql = "UPDATE db_mxh.user SET Name=?, Othername=? , Phone= ?, Email=?, Hometown=?, Address=?,Hobby=? WHERE Username= ?";
+         String sql = "UPDATE db_mxh.user SET Name=?,Phone= ?, Email=?, Hometown=?, Address=?,Hobby=? WHERE UserId= ?";
          PreparedStatement ps = cons.prepareCall(sql);
                  
          ps.setString(1,user.getName());
-         ps.setString(2,user.getOtherName());
-         ps.setString(3,user.getPhone());
-         ps.setString(4,user.getEmail());
-         ps.setString(5, user.getHometown());
-         ps.setString(6, user.getAddress());
+         ps.setString(2,user.getPhone());
+         ps.setString(3,user.getEmail());
+         ps.setString(4, user.getHometown());
+         ps.setString(5, user.getAddress());
        //  ps.setString(7, user.getBDay());
-         ps.setString(7, user.getHobby());
-         ps.setString(8,user.getUserName());
+         ps.setString(6, user.getHobby());
+         ps.setInt(7,user.getUserId());
          int temp = ps.executeUpdate();
          
          return temp == 1 ;
@@ -228,10 +244,10 @@ public class UserDAO {
        public static boolean editAvatar(User user) throws SQLException {
             Connection cons = DBConnect_MySQL.getConnection();
     try {
-         String sql = "UPDATE db_mxh.user SET Avatar= ? WHERE Username= ?";
+         String sql = "UPDATE db_mxh.user SET Avatar= ? WHERE UserId= ?";
          PreparedStatement ps = cons.prepareCall(sql);
          ps.setString(1,user.getAvatarLink());
-         ps.setString(2,user.getUserName());
+         ps.setInt(2,user.getUserId());
          int temp = ps.executeUpdate();
          return temp == 1 ;
     } catch (Exception e) {
@@ -239,4 +255,5 @@ public class UserDAO {
     }
 
 }  
+
 }

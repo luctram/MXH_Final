@@ -55,7 +55,7 @@ public final class AdminLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    <body>\n");
       out.write("        <div id=\"warp\">\n");
       out.write("            MakeFriend Social Network Administrator\n");
-      out.write("            <form action=\"\" id=\"formu\">\n");
+      out.write("            <form action=\"../Servlet_AdminLogin\" method=\"POST\" id=\"formu\">\n");
       out.write("                <div class=\"admin\">\n");
       out.write("                    <div class=\"rota\">\n");
       out.write("                        <h1>ADMIN</h1>\n");
@@ -66,7 +66,7 @@ public final class AdminLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <div class=\"title\">\n");
       out.write("                    <div class=\"roti\">\n");
       out.write("                        <h1>M.F</h1>\n");
-      out.write("                        <button id=\"login\" type=\"button\" name=\"valid\">Đăng nhập</button><br />\n");
+      out.write("                        <input id=\"login\" type=\"submit\" name=\"valid\" value=\"Đăng nhập\"><br />\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("            </form>\n");

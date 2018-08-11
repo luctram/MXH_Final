@@ -12,11 +12,25 @@
         <title>MAKEFRIEND SOCIAL NETWORK ADMINISTRATOR</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
         <link rel="stylesheet" href="AdminCss.css">
+        <style>
+           #login {
+  margin-left: -230px;
+  background: black;
+  color: white;
+  text-align: right;
+  cursor: pointer;
+  transition: all 1s ease-out;
+}
+#login:hover {
+  background: #81827c;
+  transition: all 0.3s ease-in;
+}
+        </style>
     </head>
     <body>
         <div id="warp">
             MakeFriend Social Network Administrator
-            <form action="" id="formu">
+            <form action="../Servlet_AdminLogin" method="POST" id="formu">
                 <div class="admin">
                     <div class="rota">
                         <h1>ADMIN</h1>
@@ -27,7 +41,7 @@
                 <div class="title">
                     <div class="roti">
                         <h1>M.F</h1>
-                        <button id="login" type="button" name="valid">Đăng nhập</button><br />
+                        <input id="login" type="submit" name="valid" value="Đăng nhập"><br />
                     </div>
                 </div>
             </form>

@@ -8,6 +8,7 @@ package Controller;
 import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,14 +29,10 @@ public class Servlet_ForgetPass extends HttpServlet{
         String username = request.getParameter("username");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
-
+PrintWriter out = response.getWriter();
         String error = "";
         if (phone.equals("")) {
             error = "Chưa nhập sdt";
-            request.setAttribute("error", error);
-        }
-        if (username.equals("")) {
-            error = "Chưa nhập ten";
             request.setAttribute("error", error);
         }
         if (email.equals("")) {
@@ -45,21 +42,24 @@ public class Servlet_ForgetPass extends HttpServlet{
 
         try {
             if (error.length() == 0) {
-                String result = UserDAO.getPhoneAndEmailByUsernameToCheck(username);
+                int id = UserDAO.getId(username);
+                String result = UserDAO.getPhoneAndEmailByUseridToCheck(id);
                 String[] str = result.split("[/]"); //cắt chuỗi "phone/email"
                 if ( phone.equals(str[0]) && email.equals(str[1])){
                     response.sendRedirect("http://localhost:8084/MXH_Final/ResetPassword.jsp");
-                    getServletContext().setAttribute("username1",username); // truyen username về jsp
+                    getServletContext().setAttribute("useridcheck",id); // truyen username về jsp
                     request.getRequestDispatcher("ResetPassword.jsp").forward(request, response);
                     return;
                 }
                 else{
-                        //sai   
-                        response.sendRedirect("http://localhost:8084/MXH_Final/FormLogin.jsp");
+                          out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Nhập sai thông tin');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/CheckAcc.jsp' ;</script></html>");   
                         return; }
             } else {
-                //Nhập rỗng
-                response.sendRedirect("http://localhost:8084/MXH_Final/CheckAcc.jsp");
+                  out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Nhập thiếu thông tin');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/CheckAcc.jsp' ;</script></html>");
             }
         } catch (Exception e) {
         }
@@ -73,7 +73,7 @@ public class Servlet_ForgetPass extends HttpServlet{
         response.setCharacterEncoding("utf-8");
         String pass1 = request.getParameter("password");
         String pass2 = request.getParameter("verifypassword");
-        String username = request.getParameter("username");
+        String userid = request.getParameter("userid");
         String error = "";
         if (pass1.equals("")) {
             error = "Chưa nhập pass";
@@ -87,9 +87,7 @@ public class Servlet_ForgetPass extends HttpServlet{
         try {
             if (error.length() == 0) {
                 if (pass2.equals(pass1)){
-                    User user= new User(username, pass1);
-                    user.setUserName(username);
-                    user.setPassword(pass1);
+                    User user= new User(Integer.parseInt(userid), pass2);
                     UserDAO.ChangePass(user);
                     System.out.println("Đổi mật khẩu thành công. Vui lòng đăng nhập lại!!");
                     response.sendRedirect("http://localhost:8084/MXH_Final/FormLogin.jsp");

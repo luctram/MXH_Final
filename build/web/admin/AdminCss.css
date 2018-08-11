@@ -160,18 +160,7 @@ input, button {
   font-size: 10px;
   transition: all 1s ease-out;
 }
-button {
-  margin-left: -230px;
-  background: #000;
-  color: white;
-  text-align: right;
-  cursor: pointer;
-  transition: all 1s ease-out;
-}
-button:hover {
-  background: #81827c;
-  transition: all 0.3s ease-in;
-}
+
 input:hover {
   box-shadow: inset 0 0 5px rgba(190, 29, 204, 0.6);
 }

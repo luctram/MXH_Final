@@ -8,6 +8,7 @@ package Controller;
 import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,8 +39,7 @@ public class Servlet_Login extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         String username = request.getParameter("username");
         String password = request.getParameter("pass");
-       
-        String getnamefromid;
+    PrintWriter out = response.getWriter();
         String error = "";
         if (username.equals("")) {
             error = "Chưa nhập tên đăng nhập";
@@ -58,8 +58,12 @@ public class Servlet_Login extends HttpServlet {
                 for (int i = 0; i < acc.size(); i++) {
                     System.out.println("Servlet_Login:   "+acc.get(i).getUserName());
                     if (username.equals(acc.get(i).getUserName()) && password.equals(acc.get(i).getPassword())) {
-                        getServletContext().setAttribute("username",acc.get(i).getUserName()); // truyen username về jsp
-                        System.out.println("Login: " + acc.get(i).getUserName());
+                        
+                        int id= UserDAO.getId(acc.get(i).getUserName());
+                        
+                        System.out.println("Login: " + id);
+                        
+                        getServletContext().setAttribute("userid",id); // truyen userid về jsp
                         request.getRequestDispatcher("Home.jsp").forward(request, response);
                         request.getRequestDispatcher("mess.jsp").forward(request, response);
                         request.getRequestDispatcher("menu.jsp").forward(request, response);
@@ -71,17 +75,21 @@ public class Servlet_Login extends HttpServlet {
                          request.getRequestDispatcher("game.jsp").forward(request, response);
                           request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
                            request.getRequestDispatcher("ChangeAvatar.jsp").forward(request, response);
-                        
+                           request.getRequestDispatcher("EditPost.jsp").forward(request, response);
+                        request.getRequestDispatcher("RequestFriends.jsp").forward(request, response);
                         response.sendRedirect("http://localhost:8084/MXH_Final/Home.jsp");
+                     
                         return;
                     }
                 }
-                System.out.println("<script>alert('Nhập sai tên đăng nhập hoặc mật khẩu!');</script>");
-                response.sendRedirect("http://localhost:8084/MXH_Final/FormLogin.jsp");
+                out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Nhập sai tên hoặc mật khẩu!');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/FormLogin.jsp' ;</script></html>");
                 return;
             } else {
-                System.out.println("<script>alert('Nhập thiếu tên đăng nhập hoặc mật khẩu!');</script>");
-                response.sendRedirect("http://localhost:8084/MXH_Final/FormLogin.jsp");
+                out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Nhập thiếu tên đăng nhập hoặc mật khẩu!');");
+                out.print("window.location = 'http://localhost:8084/MXH_Final/FormLogin.jsp' ;</script></html>");
             }
         } catch (Exception e) {
             e.printStackTrace();

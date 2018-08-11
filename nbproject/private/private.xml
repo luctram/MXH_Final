@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/src/java/DAO/UserPostDAO.java</file>
             <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/web/Home.jsp</file>
-            <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/web/postcss.css</file>
+            <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/web/RequestFriends.jsp</file>
             <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/src/java/DAO/UserDAO.java</file>
             <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/web/UserInfo.jsp</file>
-            <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/web/mess.jsp</file>
-            <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/web/UserPage.jsp</file>
-            <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/web/css.css</file>
+            <file>file:/C:/Users/TramLuc/Documents/NetBeansProjects/MXH_Final/src/java/DAO/FriendsDAO.java</file>
         </group>
     </open-files>
 </project-private>

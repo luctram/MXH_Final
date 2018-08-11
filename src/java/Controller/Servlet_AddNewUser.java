@@ -34,6 +34,7 @@ public class Servlet_AddNewUser extends HttpServlet{
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String name = request.getParameter("name");
+        PrintWriter out = response.getWriter();
         String error = "";
         if (username.equals("")) {
             error = "Chưa nhập tên đăng nhập";
@@ -77,26 +78,26 @@ public class Servlet_AddNewUser extends HttpServlet{
                             user.setBDay(" ");
                             user.setHobby(" ");
                             user.setHometown(" ");
-                            user.setOtherName(" ");
                                                
                              UserDAO.createUser(user);
-                             System.out.println("Add new ok");
-                              PrintWriter out = response.getWriter();
-                             out.println("KO TRUNG");
-                             response.sendRedirect("http://localhost:8084/MXH_Final/FormLogin.jsp");
+                            out.print("<html><meta charset=\"utf-8\"/>");
+                             out.print("<script>alert('Tạo tài khoản thành công!');");
+                              out.print("window.location = 'http://localhost:8084/MXH_Final/FormLogin.jsp' ;</script></html>");
                              return;
                         }
                         else{
-                            System.out.println("<script>alert('Thông tin bị trùng!');</script>");
-                            response.sendRedirect("http://localhost:8084/MXH_Final/FormRegistration.jsp");
+                             out.print("<html><meta charset=\"utf-8\"/>");
+                             out.print("<script>alert('Tên tài khoản/Số điện thoại/Email đã có! Vui lòng nhập thông tin khác');");
+                              out.print("window.location = 'http://localhost:8084/MXH_Final/FormRegistration.jsp' ;</script></html>");
                             return;
                         }
                     }
                     
                           
                 } else {
-                    System.out.println("<script>alert('Nhập thiếu thông tin');</script>");
-                    response.sendRedirect("http://localhost:8084/MXH_Final/FormRegistration.jsp");
+                     out.print("<html><meta charset=\"utf-8\"/>");
+                             out.print("<script>alert('Vui lòng nhập đủ thông tin');");
+                              out.print("window.location = 'http://localhost:8084/MXH_Final/FormRegistration.jsp' ;</script></html>");
                 }   
             } catch (Exception e) {
             }

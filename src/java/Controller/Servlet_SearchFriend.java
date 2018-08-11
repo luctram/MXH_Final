@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.FriendsDAO;
+import DAO.UserDAO;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,20 +40,23 @@ public class Servlet_SearchFriend extends HttpServlet {
             if (error.length() == 0) {
                User user = new User();
                user =FriendsDAO.searchUser(infoUser);
-                
+                int id = UserDAO.getId(user.getUserName());
                if(user.equals(null)){
-                   System.out.println("Tai khoan ko ton tai");
+                    out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Tài khoản này không tồn tại');</script></html>");
                    return;
                }
-               else{System.out.println("AAAAAAAAAA: "+user.getAddress());
-                  out.print(user.getUserName()+"-"+user.getName() +"-" + user.getEmail() + "-" + user.getPhone() + "-" + user.getAddress() + "-" + user.getAvatarLink());
-               return;
+               else{User u = new User();
+                   u = UserDAO.getInfoByUserId(id);
+                  out.print(id+"-"+u.getName() +"-" + u.getEmail() + "-" + u.getPhone() + "-" + u.getAddress() + "-" + u.getAvatarLink());
+                   return;
                }
                
                 
             } else {
-                System.out.println("<script>alert('Nhập thiếu tên đăng nhập hoặc mật khẩu!');</script>");
-                response.sendRedirect("http://localhost:8084/MXH_Final/NewFriend.jsp");
+                 out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Nhập thiếu thông tin');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/NewFriend.jsp' ;</script></html>");
                 return;
             }
         } catch (Exception e) {

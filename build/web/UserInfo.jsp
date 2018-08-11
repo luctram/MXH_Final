@@ -72,8 +72,9 @@
         <body>
         <%
             User user = new User();
-            user.setUserName(getServletContext().getAttribute("username").toString());
-            user = UserDAO.getInfoByUsername(user.getUserName());
+            int userid = (int)getServletContext().getAttribute("userid");
+            user.setUserId(userid);
+            user = UserDAO.getInfoByUserId(userid);
 
             String nam, thang, ngay, bday;
             bday = user.getBDay();
@@ -106,11 +107,11 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-horizontal">
-                                <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username")%>">
+                                <input type="hidden" name="userid" value="<%=userid%>">
                                 <label for="name">Tên</label>
                                 <input type="text" class="form-control" id="name" value="<%=user.getName()%>" name="name">
                                 <br><label for="othername">Tên khác</label>
-                                <input type="text" class="form-control" id="othername" value="<%=user.getOtherName()%>" name="othername">               
+                                <input type="text" class="form-control" id="othername" value="<%=user.getUserName()%>" >               
                                 <br><label for="phone">Số điện thoại</label>
                                 <input type="text" class="form-control" id="othername" value="<%=user.getPhone()%>" name="phone">                        
                                 <br><label for="email">Email</label>

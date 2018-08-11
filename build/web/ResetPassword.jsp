@@ -20,7 +20,7 @@
     </head>
     <body>
         <%
-            System.out.println("RESET: " + getServletContext().getAttribute("username1"));
+            System.out.println("RESET: " + getServletContext().getAttribute("useridcheck"));
         %>
 
         <main role="main" class="container">
@@ -37,7 +37,7 @@
             <div id="quenmatkhau">
                 <h3>MẬT KHẨU MỚI</h3>
                 <form action="./Servlet_ForgetPass" method="POST">
-                    <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username1")%>">
+                    <input type="hidden" name="userid" value="<%=getServletContext().getAttribute("useridcheck")%>">
                     <br>Mật khẩu mới&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input class="matkhau1" type="password" name="password">
 

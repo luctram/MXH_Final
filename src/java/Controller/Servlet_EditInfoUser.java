@@ -27,27 +27,17 @@ public class Servlet_EditInfoUser extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
-        String username = request.getParameter("username");
+        String userid = request.getParameter("userid");
         String name = request.getParameter("name");
-        String othername = request.getParameter("othername");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String hometown = request.getParameter("hometown");
-        String hobby = request.getParameter("name");
+        String hobby = request.getParameter("hobby");
         String phone = request.getParameter("phone");
         
         try {
-            User user = new User(username, email, phone, name, othername, address, hometown, hobby);
-            System.out.println(username);
-            user.setUserName(username);
-            user.setName(name);
-            user.setOtherName(othername);
-            user.setAddress(address);
-            user.setEmail(email);
-            user.setHobby(hobby);
-            user.setHometown(hometown);
-            
-            UserDAO.editUser(user);
+      User u = new User(Integer.parseInt(userid), email, phone, name, hobby, address, hometown, hobby);
+            UserDAO.editUser(u);
             
                 PrintWriter out = response.getWriter();
                 out.println("THANH CONG");

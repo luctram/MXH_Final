@@ -10,7 +10,7 @@ package Model;
  * @author TramLuc
  */
 public class UserPost {
-    private String userName;
+    private int userId;
     private String date;
     private int postId;
     private String content;
@@ -20,8 +20,8 @@ public class UserPost {
     public UserPost() {
     }
 
-    public UserPost(String userName, String date, int postId, String content, String imgVideoLink, int countLike) {
-        this.userName = userName;
+    public UserPost(int userId, String date, int postId, String content, String imgVideoLink, int countLike) {
+        this.userId = userId;
         this.date = date;
         this.postId = postId;
         this.content = content;
@@ -29,24 +29,24 @@ public class UserPost {
         this.countLike = countLike;
     }
 
-    public UserPost(String userName, String content, String imgVideoLink) {
-        this.userName = userName;
-        this.content = content;
-        this.imgVideoLink = imgVideoLink;
-    }
-
-    public UserPost(String userName, int countLike) {
-        this.userName = userName;
+    public UserPost(int userId, int countLike) {
+        this.userId = userId;
         this.countLike = countLike;
     }
 
 
-    public String getUserName() {
-        return userName;
+    public UserPost(int postId, String content, String imgVideoLink) {
+        this.postId = postId;
+        this.content = content;
+        this.imgVideoLink = imgVideoLink;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getImgVideoLink() {

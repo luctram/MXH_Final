@@ -22,7 +22,7 @@
     <body>
         <div id="feedback">
             <form action="./Servlet_Feedback" method="POST">
-               <input type="hidden" name="username" value="<%=getServletContext().getAttribute("username")%>">
+               <input type="hidden" name="userid" value="<%=getServletContext().getAttribute("userid")%>">
                <textarea rows="15" cols="100" name="contents" >
                 </textarea>
                  <br>
