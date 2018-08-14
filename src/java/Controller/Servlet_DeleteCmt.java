@@ -5,9 +5,7 @@
  */
 package Controller;
 
-import DAO.FriendsDAO;
-import DAO.UserDAO;
-import Model.User;
+import DAO.CmtPostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,24 +18,23 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author TramLuc
  */
-@WebServlet(name = "Servlet_DeleteFriend", urlPatterns = {"/Servlet_DeleteFriend"})
-public class Servlet_DeleteFriend extends HttpServlet {
+@WebServlet(name = "Servlet_DeleteCmt", urlPatterns = {"/Servlet_DeleteCmt"})
+public class Servlet_DeleteCmt extends HttpServlet {
 public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
         PrintWriter out = response.getWriter();
-        String userid = request.getParameter("userid");
-        String friendid = request.getParameter("friendid");
+        String idcmt = request.getParameter("idcmt");
         try {
-            int id= FriendsDAO.getId(Integer.parseInt(userid), Integer.parseInt(friendid));
-            System.out.println("ABC: " + id);
-            FriendsDAO.deleteFriend(id);
-out.print("<html><meta charset=\"utf-8\"/>");
-                out.print("<script>alert('Đã xóa bạn bè');");
-               out.print("window.location = 'http://localhost:8084/MXH_Final/Friends.jsp' ;</script></html>");
+            int id = Integer.parseInt(idcmt);
+           CmtPostDAO.deleteCmt(id);
+                out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Đã xóa bình luận');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/UserPage.jsp' ;</script></html>");
         } catch (Exception e) {
             e.printStackTrace();
         }
-}}
+}
+}

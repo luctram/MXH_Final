@@ -52,7 +52,7 @@ public class UserDAO {
    public static int getId(String username){
        Connection cons = DBConnect_MySQL.getConnection();
        int id = 0;
-         String sql = "SELECT UserId FROM db_mxh.user where Username='" + username+"'";
+         String sql = "SELECT UserId FROM db_mxh.user where Username='" + username+"' Or Phone = '" + username+"' Or Email ='" + username+"'";
          try{
          PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
          ResultSet rs = ps.executeQuery();
@@ -128,13 +128,7 @@ public class UserDAO {
    //Lay username vs pass 
     public static ArrayList<User> getAcc() throws SQLException {
         Connection cons = DBConnect_MySQL.getConnection();
-        if (cons == null) {
-            System.out.println("loi");
-            return null;
-        
-        }else {
-            System.out.println(cons.toString());
-        }
+      
         String sql = "SELECT Username,Password FROM db_mxh.user" ;
         ArrayList<User> user = new ArrayList<>();
         try {
@@ -201,6 +195,7 @@ public class UserDAO {
              PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
+                u.setUserId(userid);
                 u.setUserName(rs.getString("Username"));
                 u.setBDay(rs.getString("BDay"));
                 u.setAddress(rs.getString("Address"));

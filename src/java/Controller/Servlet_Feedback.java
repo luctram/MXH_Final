@@ -43,7 +43,6 @@ public class Servlet_Feedback extends HttpServlet {
                 fb.setUserId(Integer.parseInt(userid));
                 fb.setContents(contents);
                 fb.setDate(java.time.LocalDate.now().toString());
-                System.out.println(fb.getDate());
                 FeedbackDAO.newFeedBack(fb);
                 
                   out.print("<html><meta charset=\"utf-8\"/>");
@@ -68,7 +67,7 @@ public class Servlet_Feedback extends HttpServlet {
         response.setCharacterEncoding("utf-8");
         String userid = request.getParameter("userid");
         String contents = request.getParameter("contents");
-
+  PrintWriter out = response.getWriter();
         String error = "";
         if (contents.equals("")) {
             error = "Chưa nhập nội dung";
@@ -81,16 +80,17 @@ public class Servlet_Feedback extends HttpServlet {
                 fb.setUserId(Integer.parseInt(userid));
                 fb.setContents(contents);
                 fb.setDate(java.time.LocalDate.now().toString());
-                System.out.println(fb.getDate());
                 FeedbackDAO.newFeedBack(fb);
                 
-                PrintWriter out = response.getWriter();
-                out.println("M.F xin cảm ơn phản hồi của bạn <3");
-                response.sendRedirect("http://localhost:8084/MXH_Final/Feedback.jsp");
+              
+                 out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('M.F xin cảm ơn phản hồi của bạn <3');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/Feedback.jsp' ;</script></html>");
                 return;
             } else {
-                System.out.println("<script>alert('Nhập thiếu thông tin');</script>");
-                response.sendRedirect("http://localhost:8084/MXH_Final/Feedback.jsp");
+                out.print("<html><meta charset=\"utf-8\"/>");
+                out.print("<script>alert('Bạn chưa nhập phản ảnh <3');");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/Feedback.jsp' ;</script></html>");
 
             }
         } catch (Exception e) {

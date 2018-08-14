@@ -67,6 +67,7 @@ public class Servlet_AddNewUser extends HttpServlet{
                     List<User> acc = UserDAO.GetUsernameAndPhoneAndEmailToCheck();
                     for (int i = 0; i < acc.size(); i++) {
                         if (!(username.equals(acc.get(i).getUserName()) || email.equals(acc.get(i).getEmail()) || phone.equals(acc.get(i).getPhone()))){
+                           if(password.equals(password1)){
                             User user  = new User();
                             user.setUserName(username);
                             user.setName(name);
@@ -84,7 +85,12 @@ public class Servlet_AddNewUser extends HttpServlet{
                              out.print("<script>alert('Tạo tài khoản thành công!');");
                               out.print("window.location = 'http://localhost:8084/MXH_Final/FormLogin.jsp' ;</script></html>");
                              return;
-                        }
+                        }else{
+                                out.print("<html><meta charset=\"utf-8\"/>");
+                             out.print("<script>alert('Mật khẩu xác nhận không khớp');");
+                              out.print("window.location = 'http://localhost:8084/MXH_Final/FormRegistration.jsp' ;</script></html>");
+                             return;
+                           }}
                         else{
                              out.print("<html><meta charset=\"utf-8\"/>");
                              out.print("<script>alert('Tên tài khoản/Số điện thoại/Email đã có! Vui lòng nhập thông tin khác');");

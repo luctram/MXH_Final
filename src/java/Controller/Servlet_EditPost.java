@@ -80,12 +80,11 @@ public class Servlet_EditPost extends HttpServlet {
             uploadDir.mkdir();
         }
       
-String imgvideolink= request.getParameter("link");
-  System.out.println("AAAAAAAAAAAAAAAAAAAA");
-String idpost = request.getParameter("id"); //NULL
-int id = Integer.parseInt(idpost);
-     System.out.println("ID: " + id);
-String contentspost = request.getParameter("content");
+String imgvideolink= "", link="";
+  
+int idpost = 0;
+String contentspost="";
+String[] fieldValue = new String[3];
         try {
             // parses the request's content to extract file data
             @SuppressWarnings("unchecked")
@@ -94,45 +93,58 @@ String contentspost = request.getParameter("content");
 
             if (formItems != null && formItems.size() > 0) {
                 // iterates over form's fields
-               
+               int i=0;
                 for (FileItem item : formItems) {
                    
                     {  // processes only fields that are not form fields
                     if (item.isFormField()) {
                      
                         String fieldName = item.getFieldName();
-                         contentspost = item.getString();
-                      
+                        fieldValue[i] = item.getString();
+                         i++;
                          
                     }
                     else {
                          String fileName = new File(item.getName()).getName();
                           int check = FileDAO.checkfile(fileName);
+                         if(!fileName.equals("")){
                           if(check == 0 || check == 1 ){
                         String filePath = uploadPath + File.separator + fileName;
                         File storeFile = new File(filePath);
 
                         item.write(storeFile);
-                        imgvideolink =  UPLOAD_DIRECTORY + "/" + fileName;}
+                        link =  UPLOAD_DIRECTORY + "/" + fileName;
+                          }
                           else {
                              out.print("<html><meta charset=\"utf-8\"/>");
                 out.print("<script>alert('Chỉ đăng được ảnh hoặc video');");
-               out.print("window.location = 'http://localhost:8084/MXH_Final/NewPost.jsp' ;</script></html>");
+               out.print("window.location = 'http://localhost:8084/MXH_Final/UserPage.jsp' ;</script></html>");
                             return;
                           }
                     }
+                         else{
+                             link="";
+                         }
+                    }
                     }
             }
+                idpost=Integer.parseInt(fieldValue[0]);
+       contentspost=fieldValue[2];
+       if(link.equals("")){
+           imgvideolink = fieldValue[1];
+       }else{
+           imgvideolink = link;
+       }
             }
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             request.setAttribute("message",
                     "There was an error: " + ex.getMessage());
         }
-       
+         
             try {
              
-                       UserPost uPost  = new UserPost(id, contentspost, imgvideolink);
+                       UserPost uPost  = new UserPost(idpost, contentspost, imgvideolink);
                            UserPostDAO.editPost(uPost);
                              
                              out.print("<html><meta charset=\"utf-8\"/>");

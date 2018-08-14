@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.FriendsDAO;
+import DAO.UserDAO;
 import Model.Friends;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,13 +31,12 @@ public class Servlet_RequestNewFriend extends HttpServlet {
          String userid = request.getParameter("userid");
         String friendid = request.getParameter("friendid");
         try{
-            System.out.println(userid + "  " + friendid);
             Friends friend = new Friends(Integer.parseInt(userid), Integer.parseInt(friendid), java.time.LocalDate.now().toString(), "unconfirmed");
             friend.setUserId(Integer.parseInt(userid));
             friend.setFriendId(Integer.parseInt(friendid));
             friend.setDate(java.time.LocalDate.now().toString());
             friend.setStatus("unconfirmed");
-            FriendsDAO.AddNewFriend(friend);
+            FriendsDAO.AddFriend(friend);
             
             response.sendRedirect("http://localhost:8084/MXH_Final/Friends.jsp");
             return;

@@ -36,12 +36,12 @@
                 <h3>NHẬP THÔNG TIN TÀI KHOẢN CỦA BẠN</h3>
                 <form action="./Servlet_ForgetPass" method="GET">
                     <br><br>Tên tài khoản&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="username" type="text" name="username">
+                    <input class="username" type="text" name="username"  maxlength="20" minlength="5">
                     <br><br>Số điện thoại&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="sdt" type="text" name="phone">
+                    <input class="sdt" type="text" name="phone" maxlength="15" minlength="9">
                     
                     <br><br>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="email" type="text" name="email">
+                    <input class="email" type="text" name="email" maxlength="45" minlength="10">
                     
                     <br><br><br>
                     <input class="kiemtrataikhoan" type="submit" value="KIỂM TRA">

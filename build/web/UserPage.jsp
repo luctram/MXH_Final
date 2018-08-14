@@ -36,7 +36,8 @@
              user.setUserId(userid);
             user = UserDAO.getInfoByUserId(user.getUserId());
             List<UserPost> Listpost = new ArrayList<UserPost>();
-            Listpost = UserPostDAO.getAllPostByUserid(user.getUserId());
+            Listpost = UserPostDAO.getAllPostByUserid(userid);
+            
         %>
         
         <div class="container-fluid">
@@ -54,15 +55,12 @@
         <div class="container">
             <div class="col-sm-8">
                 <%for (int i = 0; i < Listpost.size(); i++) {
-                   
-                        String avatar = UserDAO.getAvatarToShowHomePage(user.getUserId());
-                        String name = UserDAO.getNameToShowHomePage(user.getUserId());
                 %>
 
                 <div>
                     <div class="panel-heading">
-                        <a href="#"><img src="<%=avatar%>" class="img-circle" width="45px" height="43px">&nbsp;&nbsp;&nbsp;    
-                            <%=name%></a>
+                        <a href="#"><img src="<%=user.getAvatarLink()%>" class="img-circle" width="45px" height="43px">&nbsp;&nbsp;&nbsp;    
+                            <%=user.getName()%></a>
                         <div id="datepost">
                               <div class="dropdown">
                                 <span>...</span>
@@ -125,22 +123,23 @@
                                 </ul> <div class="tab-content">
                                     <div class="tab-pane active" id="tab_default_1_<%=Listpost.get(i).getPostId()%>">
                                         <div class="CmtAvatar">
-                                            <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px" height="30px">
+                                            <img src="<%=user.getAvatarLink()%>" class="img-circle" width="30px" height="30px">
 
                                         </div>
                                         <div class="Comment">
                                             <div id="Usenamepost">
-                                                <a href="">Trâm Lục</a>
+                                                <a href=""><%=user.getName()%></a>
                                             </div>
                                             <div id="WriteContents">
                                                 <form action="./Servlet_AddNewComment" method="POST">
                                                     <input type="hidden" name="postid" value="<%=Listpost.get(i).getPostId()%>">
-                                                    <input type="hidden" name="usercmt" value="<%=user.getUserName()%>">
+                                                    <input type="hidden" name="usercmt" value="<%=userid%>">
                                                     <input type="text" placeholder="Viết bình luận" name="comment">
                                                 </form>
 
                                             </div>
                                         </div>
+                                                    
 
 
                                     </div>
@@ -164,6 +163,21 @@
                                                     <%=cmtlist.get(k).getContentsCmt()%>
                                                 </div>
                                             </div>
+                                                 <div class="editcmt">
+                                                    <div id="datecmt">
+                                                        <%=cmtlist.get(k).getCmtDate()%>
+                                                    </div>
+                                                    <div class="dropdown">
+                                                        <span>...</span>
+                                                        <div class="dropdown-content">
+                                                          
+                                                            <form action="./Servlet_DeleteCmtHome" method="POST">
+                                                                <input  type = "hidden" name="idcmt" value="<%=cmtlist.get(k).getCmtId()%>" >
+                                                                <input type="submit" value="Xóa bình luận">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                         </div>
                                         <br>
                                         <%}%>

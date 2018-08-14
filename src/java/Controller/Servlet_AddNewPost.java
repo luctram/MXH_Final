@@ -104,6 +104,7 @@ String[] fieldValue = new String[2];
                     }
                     else {
                          String fileName = new File(item.getName()).getName();
+                         if(!fileName.equals("")){
                           int check = FileDAO.checkfile(fileName);
                           if(check == 0 || check == 1 ){
                         String filePath = uploadPath + File.separator + fileName;
@@ -118,6 +119,9 @@ String[] fieldValue = new String[2];
                             return;
                           }
                     }
+                         else{
+                             imgvideolink="";
+                         }}
                     }
             }
             }

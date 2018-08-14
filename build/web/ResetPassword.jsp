@@ -39,10 +39,10 @@
                 <form action="./Servlet_ForgetPass" method="POST">
                     <input type="hidden" name="userid" value="<%=getServletContext().getAttribute("useridcheck")%>">
                     <br>Mật khẩu mới&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="matkhau1" type="password" name="password">
+                    <input class="matkhau1" type="password" name="password"  maxlength="10" minlength="5">
 
                     <br><br>Nhập lại mật khẩu&nbsp;
-                    <input class="matkhau1" type="password" name="verifypassword">
+                    <input class="matkhau1" type="password" name="verifypassword"  maxlength="10" minlength="5">
 
                     <br><br><br>
                     <input class="luumatkhaumoi" type="submit" value="LƯU MẬT KHẨU">

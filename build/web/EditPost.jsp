@@ -30,15 +30,15 @@
   
     int postid= Integer.parseInt(id);
     UserPost upost = new UserPost();
-    upost = UserPostDAO.get1PostByUsername(postid);
+    upost = UserPostDAO.get1Post(postid);
     
-
     
 %>
     <div class="row " style="margin-top: 50px">
         <div class="col-md-6 col-md-offset-3 form-container">
             <form action="./Servlet_EditPost" method="POST" enctype="multipart/form-data" id="reused_form">
-                <input type="hidden" value="<%=id%>" name="id">
+                <input type="hidden" value="<%=postid%>" name="id">
+                <input type="hidden" name="link" value="<%=upost.getImgVideoLink()%>">
                 <div class="row">
                     <div class="col-sm-12 form-group">
                             <label for="comments">
@@ -58,7 +58,7 @@
                             <video width="320" height="240" controls>
                                 <source src="<%=upost.getImgVideoLink()%>" type="video/mp4">
                             </video>
-                            <input type="hidden" name="link" value="<%=upost.getImgVideoLink()%>">
+                            
                             <%}}%>
                             <br><br><br>
                                <label for="file"><i class="fa fa-image"></i> Thêm ảnh/Video</label>

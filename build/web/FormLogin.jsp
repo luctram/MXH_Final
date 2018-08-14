@@ -31,8 +31,8 @@
                 <div class="Make">
                     <div class="rota">
                         <h1>&nbsp;&nbsp;Make</h1>
-                        <input id="username" type="text" name="username" value="" placeholder="Tên đăng nhập" /><br />
-                        <input id="password" type="password" name="pass" value="" placeholder="Mật khẩu" />
+                        <input id="username" type="text" name="username" value="" placeholder="Tên đăng nhập" maxlength="20" minlength="5"/><br />
+                        <input id="password" type="password" name="pass" value="" placeholder="Mật khẩu"  maxlength="10" minlength="5"/>
                     </div>
                 </div>
                 <div class="Friend">

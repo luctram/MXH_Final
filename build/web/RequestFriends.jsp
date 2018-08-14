@@ -63,7 +63,7 @@
                         
                         <form action="./Servlet_CancelRequest" method="POST" id="addfriend">
                             <input type="hidden" name="userid" value="<%=userid%>">
-                                <input type="hidden" name="friendid" value="<%=user.getUserId()%>" id="friendname">
+                                <input type="hidden" name="friendid" value="<%=listFriend.get(i).getFriendId()%>" id="friendname">
                             <input type="submit" value="Hủy yêu cầu" id="request">
                         </form>
                     </div></div><br><br>
@@ -76,8 +76,7 @@
         <%
                      for(int i = 0 ; i < listFriendRequest.size(); i++){
                           User user= new User();
-                          user=UserDAO.getInfoByUserId(listFriendRequest.get(i).getFriendId());
-                        
+                          user=UserDAO.getInfoByUserId(listFriendRequest.get(i).getUserId());
                      
                  %>
                  <div class="friendrequest">
@@ -92,14 +91,14 @@
                     <div class="col-sm-6">
                         
                         <form action="./Servlet_AcceptFriend" method="POST" id="addfriend">
-                            <input type="hidden" name="userid" value="<%=userid%>">
+                            <input type="hidden" name="userid" value="<%=listFriendRequest.get(i).getUserId()%>">
                              <input type="hidden" name="friendid" value="<%=listFriendRequest.get(i).getFriendId()%>" id="friendname">
                             <input type="submit" value="Đồng ý" id="request">
                         </form>
                                 
                         <form action="./Servlet_CancelRequest" method="POST" id="addfriend">
-                            <input type="hidden" name="userid" value="<%=listFriendRequest.get(i).getFriendId()%>">
-                            <input type="hidden" name="friendid" value="<%=userid%>" id="friendname">
+                            <input type="hidden" name="userid" value="<%=listFriendRequest.get(i).getUserId()%>">
+                            <input type="hidden" name="friendid" value="<%=listFriendRequest.get(i).getFriendId()%>" id="friendname">
                             <input type="submit" value="Xóa lời mời" id="request">
                         </form>
                      </div></div><br><br><%}%>

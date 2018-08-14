@@ -4,6 +4,8 @@
     Author     : TramLuc
 --%>
 
+<%@page import="DAO.CmtPostDAO"%>
+<%@page import="Model.CommentPost"%>
 <%@page import="DAO.FileDAO"%>
 <%@page import="DAO.UserPostDAO"%>
 <%@page import="java.util.ArrayList"%>
@@ -29,14 +31,17 @@
         </head>
         <body>
         <%
+            int userid = (int) getServletContext().getAttribute("userid");
+        String avatarlink = UserDAO.getAvatarToShowHomePage(userid);
+        String username = UserDAO.getNameToShowHomePage(userid);
+        
             HttpSession sess = request.getSession(false); //use false to use the existing session
           
             User user = new User();
-            user.setUserName(sess.getAttribute("username123").toString());
-            System.out.println("Â " + user.getUserName());
-            user = UserDAO.getInfoByUsername(user.getUserName());
+           user.setUserId(Integer.parseInt(request.getParameter("Friendid")));
+            user = UserDAO.getInfoByUserId(user.getUserId());
             List<UserPost> Listpost = new ArrayList<UserPost>();
-            Listpost = UserPostDAO.getAllPostByUsername(user.getUserName());
+            Listpost = UserPostDAO.getAllPostByUserid(user.getUserId());
         %>
         
         <div class="container-fluid">
@@ -44,11 +49,7 @@
                 <div class="fb-profile">
                     <img align="left" class="profile-img thumbnail" src="<%=user.getAvatarLink()%>" alt="Profile image example" height="250px" width="10px"/>
                     <div class="profile-name">
-                        <h1><%=user.getName()%>
-                            <% if (!user.getOtherName().equals(" ")) {// Kiem tra user có dùng othername ko
-%>&nbsp;(<%=user.getOtherName()%>)<%}%>
-
-                        </h1>
+                        <h1><%=user.getName()%></h1>
                     </div>
                 </div>
             </div>
@@ -56,8 +57,9 @@
         <div class="container">
             <div class="col-sm-8">
                 <%for (int i = 0; i < Listpost.size(); i++) {
-                        String avatar = UserDAO.getAvatarToShowHomePage(user.getUserName());
-                        String name = UserDAO.getNameToShowHomePage(user.getUserName());
+                    
+                        String avatar = UserDAO.getAvatarToShowHomePage(user.getUserId());
+                        String name = UserDAO.getNameToShowHomePage(user.getUserId());
                 %>
 
                 <div>
@@ -111,16 +113,19 @@
                                 </ul> <div class="tab-content">
                                     <div class="tab-pane active" id="tab_default_1_<%=Listpost.get(i).getPostId()%>">
                                         <div class="CmtAvatar">
-                                            <img src="https://www.infrascan.net/demo/assets/img/avatar5.png" class="img-circle" width="30px" height="30px">
+                                            <img src="<%=avatarlink%>" class="img-circle" width="30px" height="30px">
 
                                         </div>
                                         <div class="Comment">
                                             <div id="Usenamepost">
-                                                <a href="">Trâm Lục</a>
+                                                <a href=""><%=username%></a>
                                             </div>
                                             <div id="WriteContents">
-                                                <form>
-                                                    <input type="text" placeholder="Viết bình luận">
+                                               <form action="./Servlet_AddNewCommentFriend" method="POST">
+                                                    <input type="hidden" name="friendpage" value="<%=user.getUserId()%>">
+                                                    <input type="hidden" name="postid" value="<%=Listpost.get(i).getPostId()%>">
+                                                    <input type="hidden" name="usercmt" value="<%=userid%>">
+                                                    <input type="text" placeholder="Viết bình luận" name="comment">
                                                 </form>
 
                                             </div>
@@ -129,34 +134,49 @@
 
                                     </div>
                                     <div class="tab-pane" id="tab_default_2_<%=Listpost.get(i).getPostId()%>">
-                                        <div> <div class="CmtAvatar">
-                                                <img src="Avatar/logo.png" class="img-circle" width="30px">
+                                        <%
+                                            List<CommentPost> cmtlist = new ArrayList<CommentPost>();
+                                            cmtlist= CmtPostDAO.getAllCmtByPost(Listpost.get(i).getPostId());
+                                            for(int cmt = 0 ; cmt < cmtlist.size(); cmt++){
+                                                String avatarUserCmt = UserDAO.getAvatarToShowHomePage(cmtlist.get(cmt).getUserId());
+                                                String nameUserCmt= UserDAO.getNameToShowHomePage(cmtlist.get(cmt).getUserId());
+                                            
+                                        %>
+                                         <br>
+                                            <div> <div class="CmtAvatar">
+                                                    <img src="<%=avatarUserCmt%>" class="img-circle" width="30px" height="29">
 
-                                            </div>
-                                            <div class="Comment">
-                                                <div id="Usenamepost">
-                                                    <a href="">Hana</a>
                                                 </div>
-                                                <div id="CmtContents">
-                                                    Hahaaaaaa :))
+                                                <div class="Comment">
+                                                    <div id="Usenamepost">
+                                                        <a href=""><%=nameUserCmt%></a>
+                                                    </div>
+                                                    <div id="CmtContents">
+                                                        <%=cmtlist.get(cmt).getContentsCmt()%>
+                                                    </div>
+                                                </div>
+                                                <div class="editcmt">
+                                                    <div id="datecmt">
+                                                        <%=cmtlist.get(cmt).getCmtDate()%>
+                                                    </div>
+                                                    <%
+                                                        if(cmtlist.get(cmt).getUserId() == userid){
+                                                    %>
+                                                    <div class="dropdown">
+                                                        <span>...</span>
+                                                        <div class="dropdown-content">
+                                                          
+                                                            <form action="./Servlet_DeleteCmtHome" method="POST">
+                                                                <input  type = "hidden" name="idcmt" value="<%=cmtlist.get(cmt).getCmtId()%>" >
+                                                                <input type="submit" value="Xóa bình luận">
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                         <%}%>       
                                                 </div>
                                             </div>
-                                        </div>
-                                        <br><br>
-                                        <div><div class="CmtAvatar">
-                                                <img src="Avatar/baocuong0501.png" class="img-circle" width="30px">
-
-                                            </div>
-                                            <div class="Comment">
-                                                <div id="Usenamepost">
-                                                    <a href=""> Bảo Cường</a>
-                                                </div>
-                                                <div id="CmtContents">
-                                                    Sao dui dọ kể nghe =))
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br>
+                                            <br>
+                                    <%}%>
                                     </div>
                                 </div>
                             </div>

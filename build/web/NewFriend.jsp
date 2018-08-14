@@ -25,7 +25,6 @@
 <body>
     <%
             int userid = (int)getServletContext().getAttribute("userid");
-                  
         %>
     <div class="container">
         <h2>THÊM BẠN MỚI</h2>
@@ -35,7 +34,7 @@
             <form action="./Servlet_SearchFriend" method="POST" id="formfriend">
                 <input type="text" name="friendinfo" placeholder=" Nhập tên/số điện thoại/email bạn cần tìm">
                 <input type="submit" value="Tìm" name="search">
-
+                <input type="hidden" name="userid" value="<%=userid%>">
             </form>
             
         </div>
@@ -57,10 +56,10 @@
 
                         <span class="glyphicon glyphicon-envelope text-muted c-info" data-toggle="tooltip" title="" id="emailfriend"></span>
                         
-                        <form action="./Servlet_RequestNewFriend" method="POST" id="addfriend">
+                        <form action="" method="POST" id="addfriend">
+                             <input type="hidden" name="friendid" value="" id="friendid">
                              <input type="hidden" name="userid" value="<%=userid%>">
-                                <input type="hidden" name="friendid" value="" id="friendname">
-                            <input type="submit" value="Gửi lời mời kết bạn" id="request">
+                            <input type="submit" value="" id="request">
                         </form>
                     </div>
                 </div>
@@ -78,11 +77,13 @@
                         var result = data;
                         //$('#result').attr("value",result);
                         var b= result.split("-");
-                         $('#friendname').attr("value",b[0]);
+                         $('#friendid').attr("value",b[0]);
                          $('#img').attr("src",b[5]);
                          $('#addressfriend').attr("title",b[4]);
                           $('#phonefriend').attr("title",b[3]);
                            $('#emailfriend').attr("title",b[2]);
+                           $('#request').attr("value",b[6])
+                           $('#addfriend').attr("action",b[7])
                            document.getElementById("namefriend").innerHTML = b[1];
                     }
                 });

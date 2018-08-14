@@ -39,22 +39,22 @@
                 <h3>TẠO TÀI KHOẢN MỚI</h3>
                 <form action="./Servlet_AddNewUser" method="POST">
                     <br>Tên đăng nhập *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="tendn" type="text" name="username">
+                    <input class="tendn" type="text" name="username" maxlength="20" minlength="5">
                    
                     <br><br>Mật khẩu *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="matkhau1" type="password" name="password"> 
+                    <input class="matkhau1" type="password" name="password" maxlength="10" minlength="5"> 
                     
                     <br><br>Nhập lại mật khẩu *&nbsp;
-                    <input class="matkhau1" type="password" name="password1">
+                    <input class="matkhau1" type="password" name="password1" maxlength="10" minlength="5">
                     
                     <br><br>Số điện thoại *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="sdt" type="text" name="phone">
+                    <input class="sdt" type="text" name="phone" maxlength="15" minlength="9">
                     
                     <br><br>Tên tài khoản *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="name1" type="text" name="name"> 
+                    <input class="name1" type="text" name="name" maxlength="20" minlength="5"> 
                     
                     <br><br>Email *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input class="email" type="text" name="email"> 
+                    <input class="email" type="text" name="email" maxlength="45" minlength="10"> 
                     <br>
                     <p><em>* là những thông tin bắt buộc</em></p>
                     <br>
@@ -65,6 +65,6 @@
             </div>
               
         </main><!-- /.container -->
-       
+    
         </body>
     </html>

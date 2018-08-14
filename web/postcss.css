@@ -58,6 +58,15 @@
     font-size: 11px;
     float: left;
 }
+
+.editcmt{
+    float:right;
+}
+.datecmt{
+    font-size: 10px;
+    color:#e7e7e6;
+}
+
 #Usenamepost a{
     color:black;
     text-decoration: none;

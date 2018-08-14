@@ -23,7 +23,7 @@ public class CmtPostDAO {
     
     //tao cmt moi 
        public static boolean createCmt(CommentPost cmt) throws SQLException {
-        try {
+        try {;
             String sql = "INSERT INTO db_mxh.comment (PostId, UserCmtId,ContentsCmt, CmtDate) VALUE(?,?,?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
             ps.setInt(1, cmt.getPostId());
@@ -57,7 +57,7 @@ public class CmtPostDAO {
         public static boolean deleteCmt(int cmtId) throws SQLException {
     
        try {
-        String sql = "DELETE db_mxh.comment WHERE CmtId = ?";
+        String sql = "DELETE FROM db_mxh.comment WHERE CmtId = ?";
         PreparedStatement ps = cons.prepareCall(sql);
         ps.setInt(1,cmtId);
         int temp = ps.executeUpdate();

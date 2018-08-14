@@ -31,8 +31,14 @@ public class Servlet_AcceptFriend extends HttpServlet {
          String userid = request.getParameter("userid");
         String friendid = request.getParameter("friendid");
         try{
+            int id= FriendsDAO.getId(Integer.parseInt(userid), Integer.parseInt(friendid));
+            FriendsDAO.deleteFriend(id);
             Friends friend = new Friends(Integer.parseInt(userid), Integer.parseInt(friendid), java.time.LocalDate.now().toString(), "Friend");
-            FriendsDAO.AddNewFriend(friend);
+             friend.setUserId(Integer.parseInt(userid));
+            friend.setFriendId(Integer.parseInt(friendid));
+            friend.setDate(java.time.LocalDate.now().toString());
+            friend.setStatus("Friend");
+            FriendsDAO.AddFriend(friend);
             
             response.sendRedirect("http://localhost:8084/MXH_Final/Friends.jsp");
             return;

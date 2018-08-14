@@ -19,6 +19,12 @@ public class Friends {
     public Friends() {
     }
 
+    public Friends(int friendListId, String Date, String Status) {
+        this.friendListId = friendListId;
+        this.Date = Date;
+        this.Status = Status;
+    }
+
     public Friends(int userId, int friendId, String Date, String Status) {
         this.userId = userId;
         this.friendId = friendId;

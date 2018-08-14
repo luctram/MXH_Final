@@ -45,9 +45,10 @@
             <div class="row">
  <%
                             for(int i = 0; i< listFriend.size(); i++){
+                                System.out.println("AAAAAAAA: " + listFriend.size());
                                 User user= new User();
-                                user = UserDAO.getInfoByUserId(userid);
-                                
+                                user = UserDAO.getInfoByUserId(listFriend.get(i).getFriendId());
+                                System.out.println("BB" + user.getUserName());
  %>
                 <div class="listfriend">
                     <div class="col-sm-12">

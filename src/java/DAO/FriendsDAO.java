@@ -23,7 +23,7 @@ public class FriendsDAO {
     //Get All Friend By Username
     public static ArrayList<Friends> getAllFriendByUserId(int userid) {
         ArrayList<Friends> list = new ArrayList<Friends>();
-        String sql1 = "SELECT * FROM db_mxh.friendlist WHERE UserId = '"+userid+"' AND Status='Friend'";
+        String sql1 = "SELECT * FROM db_mxh.friendlist WHERE (UserId = '"+userid+"' OR FriendId= '"+userid+"') AND Status='Friend'";
         
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql1);
@@ -127,7 +127,7 @@ public class FriendsDAO {
     }
     
     //Add New Friend By Username
-    public static boolean AddNewFriend(Friends friend) throws SQLException {
+    public static boolean AddFriend(Friends friend) throws SQLException {
         try {
             String sql = "INSERT INTO db_mxh.friendlist (UserId, FriendId,Date,Status) VALUE(?,?,?,?)";
             PreparedStatement ps = cons.prepareStatement(sql);
@@ -144,13 +144,29 @@ public class FriendsDAO {
         }
     }
     
+    //Accept become Friend
     
+    public static boolean AcceptFriend(Friends friend){
+          try {
+            String sql = "UPDATE FROM db_mxh.friendlist Date=?, Status=? WHERE FriendListId=?";
+            PreparedStatement ps = cons.prepareStatement(sql);
+            
+            ps.setString(1, friend.getDate());
+            ps.setString(2, friend.getStatus());
+            ps.setInt(3,friend.getFriendListId());
+            int temp = ps.executeUpdate();
+            return temp == 1;
+        } catch (Exception e) {
+            return false;
+
+        }
+    }
     //get id from username and friendname 
     public static int getId(int userid, int friendid){
         int result = 0;
         try {
           
-            String sql ="Select FriendListId FROM db_mxh.friendlist WHERE UserId = '"+userid +"' AND FriendId= '" +friendid+"'";
+            String sql ="Select FriendListId FROM db_mxh.friendlist WHERE (UserId = '"+userid +"' AND FriendId= '" +friendid+"') OR (UserId='"+friendid+"' AND FriendId='"+userid+"')";
             System.out.println("SQL: " +sql);
             PreparedStatement ps = cons.prepareCall(sql);
             ResultSet rs = ps.executeQuery();
@@ -168,7 +184,7 @@ public class FriendsDAO {
     
        try {
           
-        String sql = "DELETE FROM db_mxh.friendlist WHERE FriendListId = " + id;
+        String sql = "DELETE FROM db_mxh.friendlist WHERE FriendListId = '" + id+"'";
         PreparedStatement ps = cons.prepareCall(sql);
         int temp = ps.executeUpdate();
             return true;

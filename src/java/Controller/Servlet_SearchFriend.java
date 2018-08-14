@@ -7,10 +7,12 @@ package Controller;
 
 import DAO.FriendsDAO;
 import DAO.UserDAO;
+import Model.Friends;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +30,7 @@ public class Servlet_SearchFriend extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
         response.setCharacterEncoding("utf-8");
+        String userid = request.getParameter("userid");
         String infoUser = request.getParameter("friendinfo");
        PrintWriter out =response.getWriter();
         String error = "";
@@ -46,10 +49,24 @@ public class Servlet_SearchFriend extends HttpServlet {
                 out.print("<script>alert('Tài khoản này không tồn tại');</script></html>");
                    return;
                }
-               else{User u = new User();
-                   u = UserDAO.getInfoByUserId(id);
-                  out.print(id+"-"+u.getName() +"-" + u.getEmail() + "-" + u.getPhone() + "-" + u.getAddress() + "-" + u.getAvatarLink());
-                   return;
+               else{
+                   List<Friends> list= new ArrayList<Friends>();
+                   list = FriendsDAO.getAllFriendByUserId(Integer.parseInt(userid));
+                    
+                   for(int i = 0; i< list.size(); i++){
+                     if(list.get(i).getFriendId() == id){
+                         User u = new User();
+                    u = UserDAO.getInfoByUserId(id);
+                         out.print(id+"-"+u.getName() +"-" + u.getEmail() + "-" + u.getPhone() + "-" + u.getAddress() + "-" + u.getAvatarLink() + "-Hủy kết bạn-./Servlet_DeleteFriend");
+                    return;
+                     }
+                   } 
+                         User u = new User();
+                    u = UserDAO.getInfoByUserId(id);
+                          out.print(id+"-"+u.getName() +"-" + u.getEmail() + "-" + u.getPhone() + "-" + u.getAddress() + "-" + u.getAvatarLink() + "-Gửi lời mời kết bạn-./Servlet_RequestNewFriend");
+                    return;
+
+                  
                }
                
                 
