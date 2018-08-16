@@ -142,7 +142,7 @@
                                                 String nameUserCmt= UserDAO.getNameToShowHomePage(cmtlist.get(cmt).getUserId());
                                             
                                         %>
-                                         <br>
+                                         <br><br>
                                             <div> <div class="CmtAvatar">
                                                     <img src="<%=avatarUserCmt%>" class="img-circle" width="30px" height="29">
 

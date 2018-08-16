@@ -144,7 +144,7 @@
                                                     User u = new User();
                                                     u = UserDAO.getInfoByUserId(cmtlist.get(k).getUserId());
                                             %>
-                                            <br>
+                                            <br><br>
                                             <div> <div class="CmtAvatar">
                                                     <img src="<%=u.getAvatarLink()%>" class="img-circle" width="30px" height="29">
 

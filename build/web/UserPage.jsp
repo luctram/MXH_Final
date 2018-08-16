@@ -55,6 +55,7 @@
         <div class="container">
             <div class="col-sm-8">
                 <%for (int i = 0; i < Listpost.size(); i++) {
+                    int countcmt = CmtPostDAO.countCmt(Listpost.get(i).getPostId());
                 %>
 
                 <div>
@@ -80,7 +81,7 @@
                             <br>
                             <%=Listpost.get(i).getDate()%>
                             <br>
-                            <p>2&nbsp;bình luận&nbsp;&nbsp;&nbsp;<%=Listpost.get(i).getCountLike()%>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i></p>
+                            <p><%=countcmt%>&nbsp;bình luận&nbsp;&nbsp;&nbsp;<%=Listpost.get(i).getCountLike()%>&nbsp;&nbsp;&nbsp;<i class="fa fa-heart"></i></p>
                          
                         </div>
                     </div>   
@@ -149,8 +150,8 @@
                                             cmtlist = CmtPostDAO.getAllCmtByPost(Listpost.get(i).getPostId());
                                             for(int k = 0; k < cmtlist.size(); k++){
                                                 User u = new User();
-                                                u= UserDAO.getInfoByUserId(cmtlist.get(k).getCmtId());
-                                        %><br>
+                                                u= UserDAO.getInfoByUserId(cmtlist.get(k).getUserId());
+                                        %><br><br>
                                         <div> <div class="CmtAvatar">
                                                 <img src="<%=u.getAvatarLink()%>" class="img-circle" width="30px">
 

@@ -26,6 +26,14 @@ public class Mess {
         this.status = status;
     }
 
+    public Mess(int userId1, int userId2, String date, String mess, String status) {
+        this.userId1 = userId1;
+        this.userId2 = userId2;
+        this.date = date;
+        this.mess = mess;
+        this.status = status;
+    }
+
 
     public Mess() {
     }

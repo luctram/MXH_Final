@@ -231,6 +231,7 @@ input:focus {
 }
 .chat_area li {
   padding: 14px 14px 0;
+  text-decoration: none;
 }
 .chat_area li .chat-img1 img {
   height: 40px;
@@ -244,7 +245,7 @@ input:focus {
   padding: 10px;
 }
 .chat_area .admin_chat .chat-body1 {
-  margin-left: 0;
+    float:right;
   margin-right: 50px;
 }
 .chat_area li:last-child {

@@ -72,8 +72,8 @@ public final class FormLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                <div class=\"Make\">\n");
       out.write("                    <div class=\"rota\">\n");
       out.write("                        <h1>&nbsp;&nbsp;Make</h1>\n");
-      out.write("                        <input id=\"username\" type=\"text\" name=\"username\" value=\"\" placeholder=\"Tên đăng nhập\" /><br />\n");
-      out.write("                        <input id=\"password\" type=\"password\" name=\"pass\" value=\"\" placeholder=\"Mật khẩu\" />\n");
+      out.write("                        <input id=\"username\" type=\"text\" name=\"username\" value=\"\" placeholder=\"Tên đăng nhập\" maxlength=\"20\" minlength=\"5\"/><br />\n");
+      out.write("                        <input id=\"password\" type=\"password\" name=\"pass\" value=\"\" placeholder=\"Mật khẩu\"  maxlength=\"10\" minlength=\"5\"/>\n");
       out.write("                    </div>\n");
       out.write("                </div>\n");
       out.write("                <div class=\"Friend\">\n");

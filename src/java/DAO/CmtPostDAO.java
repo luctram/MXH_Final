@@ -91,4 +91,20 @@ public class CmtPostDAO {
         }
         return list;
     }
+        
+        public static int countCmt(int postid){
+            int count=0;
+            String sql= "SELECT COUNT(*) FROM db_mxh.comment where PostId='"+postid+"'";
+            try {
+            PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("COUNT(*)");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+        }
 }

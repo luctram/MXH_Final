@@ -76,7 +76,7 @@
             user.setUserId(userid);
             user = UserDAO.getInfoByUserId(userid);
 
-            String nam, thang, ngay, bday;
+            String nam="", thang="", ngay="", bday="";
             bday = user.getBDay();
             if (bday.equals("")) {
                 nam = "Năm";

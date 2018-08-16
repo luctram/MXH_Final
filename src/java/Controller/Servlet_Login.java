@@ -78,7 +78,6 @@ public class Servlet_Login extends HttpServlet {
                            request.getRequestDispatcher("EditPost.jsp").forward(request, response);
                         request.getRequestDispatcher("RequestFriends.jsp").forward(request, response);
                         request.getRequestDispatcher("UserPageFriend.jsp").forward(request, response);
-                        response.sendRedirect("http://localhost:8084/MXH_Final/Home.jsp");
                      
                         return;
                     }

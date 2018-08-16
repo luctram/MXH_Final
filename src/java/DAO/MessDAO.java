@@ -45,4 +45,22 @@ public class MessDAO {
         }
         return list;
      }
+     
+      public static boolean newMess(Mess mess) throws SQLException {
+        try {
+            String sql = "INSERT INTO db_mxh.mess (UserId1, UserId2, mess, date, status) VALUE(?,?,?,?,?)";
+            PreparedStatement ps = cons.prepareStatement(sql);
+            System.out.println("SQL " + sql);
+            ps.setInt(1, mess.getUserId1());
+            ps.setInt(2, mess.getUserId2());
+            ps.setString(3, mess.getMess());
+            ps.setString(4, mess.getDate());
+            ps.setString(5, mess.getStatus());
+            int temp = ps.executeUpdate();
+            return temp == 1;
+        } catch (Exception e) {
+            return false;
+
+        }
+    }
 }

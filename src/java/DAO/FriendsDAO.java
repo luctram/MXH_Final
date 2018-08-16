@@ -23,7 +23,7 @@ public class FriendsDAO {
     //Get All Friend By Username
     public static ArrayList<Friends> getAllFriendByUserId(int userid) {
         ArrayList<Friends> list = new ArrayList<Friends>();
-        String sql1 = "SELECT * FROM db_mxh.friendlist WHERE (UserId = '"+userid+"' OR FriendId= '"+userid+"') AND Status='Friend'";
+        String sql1 = "SELECT * FROM db_mxh.friendlist WHERE UserId = '"+userid+"' AND Status='Friend'";
         
         try {
             PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql1);
@@ -98,6 +98,44 @@ public class FriendsDAO {
         catch (SQLException e) {
             e.printStackTrace();
         }
+        return list;
+    }
+    
+    public static ArrayList<Friends> getAllRequest(int userid){
+         String sql = "SELECT * FROM db_mxh.friendlist WHERE FriendId = '"+userid+"' and Status='Unconfirmed'";
+        ArrayList<Friends> list = new ArrayList<Friends>();
+        try {
+            PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Friends friend = new Friends();
+                friend.setUserId(rs.getInt("UserId"));
+                friend.setFriendId(rs.getInt("FriendId"));
+                friend.setDate(rs.getString("Date"));
+                list.add(friend);
+            }
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+          String sql1 = "SELECT * FROM db_mxh.friendlist WHERE UserId = '"+userid+"' and Status='Unconfirmed'";
+ 
+        try {
+            PreparedStatement ps = (PreparedStatement) cons.prepareStatement(sql1);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Friends friend = new Friends();
+                friend.setUserId(rs.getInt("UserId"));
+                friend.setFriendId(rs.getInt("FriendId"));
+                friend.setDate(rs.getString("Date"));
+                list.add(friend);
+            }
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
         return list;
     }
     

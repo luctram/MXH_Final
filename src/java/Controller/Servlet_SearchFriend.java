@@ -53,15 +53,26 @@ public class Servlet_SearchFriend extends HttpServlet {
                    List<Friends> list= new ArrayList<Friends>();
                    list = FriendsDAO.getAllFriendByUserId(Integer.parseInt(userid));
                     
+                   List<Friends>listrequest = new ArrayList<Friends>();
+                   listrequest = FriendsDAO.getAllRequest(Integer.parseInt(userid));
                    for(int i = 0; i< list.size(); i++){
-                     if(list.get(i).getFriendId() == id){
+                     if(list.get(i).getFriendId() == id || list.get(i).getUserId() == id){
                          User u = new User();
                     u = UserDAO.getInfoByUserId(id);
                          out.print(id+"-"+u.getName() +"-" + u.getEmail() + "-" + u.getPhone() + "-" + u.getAddress() + "-" + u.getAvatarLink() + "-Hủy kết bạn-./Servlet_DeleteFriend");
                     return;
                      }
                    } 
-                         User u = new User();
+                   
+                   for(int j = 0; j< listrequest.size(); j++){
+                       if(listrequest.get(j).getFriendId() == id || listrequest.get(j).getUserId() == id){
+                           User us = new User();
+                           us= UserDAO.getInfoByUserId(id);
+                            out.print(id+"-"+us.getName() +"-" + us.getEmail() + "-" + us.getPhone() + "-" + us.getAddress() + "-" + us.getAvatarLink() + "-Đang chờ xác nhận-RequestFriends.jsp");
+                    return;
+                       }
+                   }
+                    User u = new User();
                     u = UserDAO.getInfoByUserId(id);
                           out.print(id+"-"+u.getName() +"-" + u.getEmail() + "-" + u.getPhone() + "-" + u.getAddress() + "-" + u.getAvatarLink() + "-Gửi lời mời kết bạn-./Servlet_RequestNewFriend");
                     return;
